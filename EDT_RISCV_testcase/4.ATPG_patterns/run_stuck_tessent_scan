@@ -1,0 +1,7 @@
+#! /bin/sh -f
+#\
+export SCAN_TOOL=Tessent_Scan
+tessent -shell -log logfiles/$0.log -replace -dofile stuck.do
+# tessent -shell -log logfiles/stuck_bypass_tessent.log -replace -dofile stuck_bypass.do
+# tessent -shell -log logfiles/stuck_power_tessent.log -replace -dofile stuck_power.do
+# tessent -shell -log logfiles/stuck_compression_tessent.log -replace -dofile stuck_dualcompression.do

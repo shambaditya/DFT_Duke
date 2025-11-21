@@ -1,0 +1,150 @@
+# vsim -64 -c -voptargs="+acc" picorv32_picorv32_transition_serial_v_ctl -l logfiles/verilog.log_transition_serial "+nospecify" "+nowarnTSCALE" -do "if {0} {log -r /*}; run -all" 
+# Start time: 23:19:46 on Nov 20,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Warning: (vopt-10587) Some optimizations are turned off because the +acc switch is in effect. This will cause your simulation to run slowly. Please use -access/-debug to maintain needed visibility. The +acc switch would be deprecated in a future release.
+# Support of the MGLS_LICENSE_FILE and LM_LICENSE_FILE licensing environment variables will be discontinued starting with the 2025.1 release. Please update to using the SALT_LICENSE_SERVER variable.
+# Please contact Siemens EDA Customer Support (https://support.sw.siemens.com/) for assistance.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2685) [TFMPC] - Too few port connections for 'picorv32_inst'.  Expected 39, found 21.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'trace_data'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'trace_valid'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'eoi'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'pcpi_rs2'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'pcpi_rs1'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'pcpi_insn'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'pcpi_valid'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_la_wstrb'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_la_wdata'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_la_addr'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_la_write'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_la_read'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_wstrb'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_wdata'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_addr'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_instr'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'mem_valid'.
+# ** Warning: patterns/picorv32_transition_serial.v(871): (vopt-2718) [TFMPC] - Missing connection for port 'trap'.
+# ** Note: (vsim-12126) Error and warning message counts have been restored: Errors=0, Warnings=20.
+# //  Questa Sim-64
+# //  Version 2024.3_2 linux_x86_64 Nov 25 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading work.picorv32_picorv32_transition_serial_v_ctl(fast)
+# Loading work.picorv32(fast)
+# Loading work.picorv32_rtl1_tessent_clk_gate_and(fast)
+# Loading work.RTLC_AND2(fast)
+# Loading work.RTLC_OR2(fast)
+# Loading work.RTLC_LDN(fast)
+# Loading work.RTLC_PRIM_LATCH(fast)
+# Loading work.picorv32_rtl1_tessent_inv(fast)
+# Loading work.picorv32_rtl1_tessent_occ(fast)
+# Loading work.picorv32_rtl1_tessent_clk_buf(fast)
+# Loading work.picorv32_rtl1_tessent_clk_buf(fast__1)
+# Loading work.picorv32_rtl1_tessent_buf(fast)
+# Loading work.picorv32_rtl1_tessent_occ_control(fast)
+# Loading work.picorv32_rtl1_tessent_posedge_synchronizer_reset(fast)
+# Loading work.RTLC_INV(fast)
+# Loading work.RTLC_FDC(fast)
+# Loading work.RTLC_PRIM_DFF(fast)
+# Loading work.picorv32_rtl1_tessent_clk_gate_and(fast__1)
+# Loading work.RTLC_AND2(fast__1)
+# Loading work.RTLC_LDN(fast__1)
+# Loading work.RTLC_PRIM_LATCH(fast__1)
+# Loading work.picorv32_rtl1_tessent_clk_mux2(fast)
+# Loading work.M_RTLSIM_MUXN_2_1(fast)
+# Loading work.RTLC_MUX2(fast)
+# Loading work.RTLC_PRIM_MUX1(fast)
+# Loading work.picorv32_rtl1_tessent_occ_shift_reg(fast)
+# Loading work.RTLC_BUF(fast)
+# Loading work.M_RTLSIM_MUXN_4_2(fast)
+# Loading work.RTLC_MUX4(fast)
+# Loading work.RTLC_PRIM_MUX4(fast)
+# Loading work.RTLC_PRIM_MUX1(fast__1)
+# Loading work.M_RTLSIM_MUXN_2_1(fast__1)
+# Loading work.RTLC_MUX2(fast__1)
+# Loading work.RTLC_FD(fast)
+# Loading work.RTLC_FDC(fast__1)
+# Loading work.RTLC_PRIM_DFF(fast__1)
+# Loading work.picorv32_rtl1_tessent_edt_c1(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_decompressor(fast)
+# Loading work.RTLC_XOR2(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_compactor(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_spatial_compactor_30_w_output_lockup(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_config1_spatial_compactor_2(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_controller(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_low_power_shift_controller(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_low_power_shift_decoder(fast)
+# Loading work.RTLC_FDE(fast)
+# Loading work.RTLC_PRIM_DFFE(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_plugin_xor_decoder(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_xor_decoder(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_onehot_decoder_5_to_30(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_onehot_decoder_6_to_60(fast)
+# Loading work.picorv32_rtl1_tessent_edt_c1_bypass_logic(fast)
+# Loading work.picorv32_rtl1_tessent_mux2(fast)
+# Loading work.M_RTLSIM_OR_48(fast)
+# Loading work.RTLC_OR4(fast)
+# Loading work.RTLC_OR3(fast)
+# Loading work.M_RTLSIM_EQ_32(fast)
+# Loading work.RTLC_XNOR2(fast)
+# Loading work.M_RTLSIM_AND_32(fast)
+# Loading work.RTLC_AND4(fast)
+# Loading work.M_RTLSIM_LT_SIGN_32(fast)
+# Loading work.RTLC_MAJ3(fast)
+# Loading work.RTLC_XOR3(fast)
+# Loading work.M_RTLSIM_LT_UNS_32(fast)
+# Loading work.M_RTLSIM_LSHIFT_32_5(fast)
+# Loading work.M_RTLSIM_B0MUX2(fast)
+# Loading work.M_RTLSIM_DEC_4_2(fast)
+# Loading work.M_RTLSIM_MUX_3_3(fast)
+# Loading work.RTLC_AO222(fast)
+# Loading work.M_RTLSIM_MUX_6_6(fast)
+# Loading work.M_RTLSIM_OR_2(fast)
+# Loading work.M_RTLSIM_MUX_5_5(fast)
+# Loading work.RTLC_AO22(fast)
+# Loading work.M_RTLSIM_DEC_32_5(fast)
+# Loading work.M_RTLSIM_DEC_8_3(fast)
+# Loading work.RTLC_AND3(fast)
+# Loading work.M_RTLSIM_MUXN_DCZ_32_5(fast)
+# Loading work.M_RTLSIM_MUXN_8_3(fast)
+# Loading work.M_RTLSIM_MUX_4_4(fast)
+# Loading work.M_RTLSIM_MUX_2_2(fast)
+# Loading work.M_RTLSIM_INCR_30(fast)
+# Loading work.RTLC_HADD(fast)
+# Loading work.M_RTLSIM_ADD_UNS_32(fast)
+# Loading work.RTLC_FADD(fast)
+# Loading work.M_RTLSIM_INCR_64(fast)
+# Loading work.M_RTLSIM_DECR_5(fast)
+# Loading work.M_RTLSIM_DECR_3(fast)
+# Loading work.M_RTLSIM_INCR_29(fast)
+# Loading work.M_RTLSIM_ADD_UNS_2(fast)
+# Loading work.RTLC_FD_SCAN(fast)
+# Loading work.RTLC_FDE_SCAN(fast)
+# if {0} {log -r /*}
+#  run -all
+# Loading patterns/picorv32_transition_serial.v.po.name
+# Loading picorv32_transition_serial.v.0.vec
+# 
+# Begin chain test
+# 
+# 160ns: Start OCC fast clock input monitoring on:  picorv32_rtl1_tessent_occ_clk_inst.tessent_persistent_cell_fast_clock_buf.y
+# 160ns: Start clock monitoring on:  clk
+# 196.400ns: Clock monitoring passed: clk.  Period = 3.000000ns as expected (within 1.00% margin of 3.000000ns) 
+# 11760.000ns: OCC fast clock input monitoring passed: picorv32_rtl1_tessent_occ_clk_inst.tessent_persistent_cell_fast_clock_buf.y.  Measured period = 3.000000ns. Number of cycles = 3867. 
+# End chain test
+# 
+# No error between simulated and expected patterns
+# 
+# ** Note: $finish    : patterns/picorv32_transition_serial.v(1499)
+#    Time: 86402 ns  Iteration: 1  Instance: /picorv32_picorv32_transition_serial_v_ctl
+# End time: 23:19:49 on Nov 20,2025, Elapsed time: 0:00:03
+# Errors: 0, Warnings: 20

@@ -1,0 +1,130 @@
+#--------------------------------------------------------------------------
+#
+#  Unpublished work. Copyright 2024 Siemens
+#
+#  This material contains trade secrets or otherwise confidential 
+#  information owned by Siemens Industry Software Inc. or its affiliates 
+#  (collectively, SISW), or its licensors. Access to and use of this 
+#  information is strictly limited as set forth in the Customer's 
+#  applicable agreements with SISW.
+#
+#--------------------------------------------------------------------------
+#  File created by: Tessent Shell
+#          Version: 2024.4
+#       Created on: Thu Nov 20 21:19:34 EST 2025
+#--------------------------------------------------------------------------
+
+# Consolidated PDL for picorv32, design_id gate 
+
+iProcsForModule picorv32_rtl1_tessent_edt_c1
+
+iProc setup {args} {  
+    if {[expr [llength $args]%2 != 0]} {
+     display_message -error "Odd number of arguments. Expecting parameter and value pairs."
+     return -code error
+  }
+  
+  set edt_configuration low_compression
+  set edt_low_power_shift_en 0
+  set edt_bypass 0
+  foreach {param value} $args {
+     set param [string tolower $param]
+     if {$param eq "edt_configuration"} {
+        set edt_configuration $value
+     } elseif {$param eq "edt_low_power_shift_en"} {
+        set edt_low_power_shift_en $value
+     } elseif {$param eq "edt_bypass"} {
+        set edt_bypass $value
+     } else {
+        display_message -error "Invalid parameter '$param'. Valid parameters are 'edt_configuration', 'edt_low_power_shift_en' and 'edt_bypass'."
+        return -code error
+     }
+     if {$param eq "edt_configuration"} {
+        if {$value eq "low_compression" || $value eq "high_compression" || [string is boolean -strict $value]} {
+           set edt_configuration $value
+        } else {
+           display_message -error "Invalid EDT configuration value '$value'. Valid values are boolean, 'low_compression' and 'high_compression'."
+           return -code error
+        }
+     } elseif {![string is boolean -strict $value]} {
+        display_message -error "Invalid non-boolean value '$value' for parameter '$param'."
+        return -code error
+     }
+  }
+  
+  if {![string is boolean -strict $edt_configuration]} {
+     iWrite edt_configuration $edt_configuration
+  } elseif {$edt_configuration} {
+     iWrite edt_configuration high_compression
+  } else {
+     iWrite edt_configuration low_compression
+  }
+  if {$edt_low_power_shift_en} {
+     iWrite edt_low_power_shift_en on
+  } else {
+     iWrite edt_low_power_shift_en off
+  }
+  if {$edt_bypass} {
+     iWrite edt_bypass on
+  } else {
+     iWrite edt_bypass off
+  }
+  iApply
+} 
+
+iProcsForModule picorv32_rtl1_tessent_occ
+
+iProc setup {args} {  
+    if {[expr [llength $args]%2 != 0]} {
+     display_message -error "Odd number of arguments. Expecting parameter and value pairs."
+     return -code error
+  }
+  set fast_capture_mode 0
+  set parent_mode 0
+  set capture_window_size 3
+  set inject_tck 0
+  foreach {param value} $args {
+     set param [string tolower $param]
+     if {$param eq "capture_window_size"} {
+        set capture_window_size $value
+     } elseif {$param eq "fast_capture_mode"} {
+        set fast_capture_mode $value
+     } else {
+        display_message -error "Invalid parameter '$param'. Valid parameters are 'fast_capture_mode' and 'capture_window_size'."
+        return -code error
+     }
+  }
+  
+  if {![string is boolean -strict $fast_capture_mode]} {
+     display_message -error "Invalid non-boolean value '$fast_capture_mode' for parameter 'fast_capture_mode'."
+     return -code error
+  }
+  if {![string is boolean -strict $parent_mode]} {
+     display_message -error "Invalid non-boolean value '$parent_mode' for parameter 'parent_mode'."
+     return -code error
+  } elseif {$parent_mode} {
+     display_message -error "Parameter 'parent_mode' cannot be set to 1 as the controller type is not 'parent'."
+     return -code error
+  }
+  if {![string is integer -strict $capture_window_size]} {
+     display_message -error "Invalid non-integer value '$capture_window_size' for parameter 'capture_window_size'."
+     return -code error
+  }
+  if {$capture_window_size < 1 || $capture_window_size > 3} {
+     display_message -error "Invalid value '$capture_window_size' for parameter 'capture_window_size'. Must be 1 to 3."
+     return -code error
+  }
+  if {![string is boolean -strict $inject_tck]} {
+     display_message -error "Invalid non-boolean value '$inject_tck' for parameter 'inject_tck'."
+     return -code error
+  } elseif {$inject_tck} {
+     display_message -error "Parameter 'inject_tck' cannot be set to 1 as the the controller is not connected to host scan interface or the controller type is 'child'."
+     return -code error
+  }
+  
+  iWrite test_mode 1;
+  iWrite fast_capture_mode [string is true $fast_capture_mode];
+  iWrite capture_cycle_width [expr {$capture_window_size - 1}];
+  
+  iApply;
+} 

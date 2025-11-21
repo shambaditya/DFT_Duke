@@ -1,0 +1,13 @@
+cd 1.insert_edt_occ
+./run_insert_edt_occ
+
+cd ../2.synthesis
+./run_ts_synthesis
+
+cd ../3.scan_insertion
+./run_scan_insertion
+
+cd ../4.ATPG_patterns
+./run_stuck_tessent_scan
+./run_transition_tessent_scan
+./run_sims

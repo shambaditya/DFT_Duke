@@ -1,0 +1,46 @@
+//--------------------------------------------------------------------------------
+//
+//  Unpublished work. Copyright 2024 Siemens
+//
+//  This material contains trade secrets or otherwise confidential 
+//  information owned by Siemens Industry Software Inc. or its affiliates 
+//  (collectively, SISW), or its licensors. Access to and use of this 
+//  information is strictly limited as set forth in the Customer's 
+//  applicable agreements with SISW.
+//
+//--------------------------------------------------------------------------------
+//  File created by: Tessent Shell
+//          Version: 2024.4
+//       Created on: Thu Nov 20 12:09:55 EST 2025
+//--------------------------------------------------------------------------------
+
+Module picorv32_rtl1_tessent_edt_c1 {
+   DataInPort edt_configuration {
+      RefEnum ConfigTable;
+      Attribute tessent_no_input_constraints = "on";
+   }
+   DataInPort edt_low_power_shift_en {
+      RefEnum OnOffTable;
+      Attribute tessent_no_input_constraints = "on";
+   }
+   DataInPort edt_bypass {
+      RefEnum OnOffTable;
+      Attribute tessent_no_input_constraints = "on";
+   }
+
+   Enum ConfigTable {
+      low_compression = 1'b0;
+      high_compression = 1'b1;
+   }
+
+   Enum OnOffTable {
+      off = 1'b0;
+      on  = 1'b1;
+   }
+
+   Attribute keep_active_during_scan_test = "true";
+
+   Attribute tessent_instrument_type = "mentor::edt";
+   Attribute tessent_signature = "6561a5c2c34d7b5bf5b44574b3084f30";
+}
+

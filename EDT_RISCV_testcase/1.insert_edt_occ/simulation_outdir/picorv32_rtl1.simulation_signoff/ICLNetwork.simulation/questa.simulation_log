@@ -1,0 +1,244 @@
+Number of expected miscompares = 0
+
+
+vlib dut_work
+vlib tsdb_ijtag_graybox
+vmap dut_work dut_work
+QuestaSim-64 vmap 2024.3_2 Lib Mapping Utility 2024.11 Nov 25 2024
+vmap dut_work dut_work 
+Modifying modelsim.ini
+vmap tsdb_ijtag_graybox tsdb_ijtag_graybox
+QuestaSim-64 vmap 2024.3_2 Lib Mapping Utility 2024.11 Nov 25 2024
+vmap tsdb_ijtag_graybox tsdb_ijtag_graybox 
+Modifying modelsim.ini
+
+
+# Entry 1
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/modified_rtl_files/picorv32.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/modified_rtl_files/picorv32.v -f questa.arguments_1 
+-- Compiling module picorv32
+-- Compiling module picorv32_regs
+-- Compiling module picorv32_pcpi_mul
+-- Compiling module picorv32_pcpi_fast_mul
+-- Compiling module picorv32_pcpi_div
+-- Compiling module picorv32_axi
+-- Compiling module picorv32_axi_adapter
+-- Compiling module picorv32_wb
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Referenced (but uncompiled) modules or primitives:
+	picorv32_rtl1_tessent_clk_gate_and
+	picorv32_rtl1_tessent_inv
+	picorv32_rtl1_tessent_occ
+	picorv32_rtl1_tessent_edt_c1
+
+Top level modules:
+	picorv32_regs
+	picorv32_axi
+	picorv32_wb
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 1"; fi
+
+# Entry 2
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_mux2.v" \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_mux2.v" \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_gate_and.v" \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_posedge_synchronizer_reset.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_mux2.v ../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_mux2.v ../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_gate_and.v ../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_posedge_synchronizer_reset.v -f questa.arguments_1 
+-- Compiling module picorv32_rtl1_tessent_mux2
+-- Compiling module picorv32_rtl1_tessent_clk_mux2
+-- Compiling module picorv32_rtl1_tessent_clk_gate_and
+-- Compiling module picorv32_rtl1_tessent_posedge_synchronizer_reset
+
+Top level modules:
+	picorv32_rtl1_tessent_mux2
+	picorv32_rtl1_tessent_clk_mux2
+	picorv32_rtl1_tessent_clk_gate_and
+	picorv32_rtl1_tessent_posedge_synchronizer_reset
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 2"; fi
+
+# Entry 3
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_buf.v" \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_buf.v" \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_inv.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_buf.v ../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_buf.v ../../../../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_inv.v -f questa.arguments_1 
+-- Compiling module picorv32_rtl1_tessent_buf
+-- Compiling module picorv32_rtl1_tessent_clk_buf
+-- Compiling module picorv32_rtl1_tessent_inv
+
+Top level modules:
+	picorv32_rtl1_tessent_buf
+	picorv32_rtl1_tessent_clk_buf
+	picorv32_rtl1_tessent_inv
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 3"; fi
+
+# Entry 4
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.v -f questa.arguments_1 
+-- Compiling module picorv32_rtl1_tessent_occ
+-- Compiling module picorv32_rtl1_tessent_occ_control
+-- Compiling module picorv32_rtl1_tessent_occ_shift_reg
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Top level modules:
+	picorv32_rtl1_tessent_occ
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 4"; fi
+
+# Entry 5
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.v -f questa.arguments_1 
+-- Compiling module picorv32_rtl1_tessent_edt_c1_decompressor
+-- Compiling module picorv32_rtl1_tessent_edt_c1_low_power_shift_decoder
+-- Compiling module picorv32_rtl1_tessent_edt_c1_low_power_shift_controller
+-- Compiling module picorv32_rtl1_tessent_edt_c1_onehot_decoder_5_to_30
+-- Compiling module picorv32_rtl1_tessent_edt_c1_onehot_decoder_6_to_60
+-- Compiling module picorv32_rtl1_tessent_edt_c1_xor_decoder
+-- Compiling module picorv32_rtl1_tessent_edt_c1_plugin_xor_decoder
+-- Compiling module picorv32_rtl1_tessent_edt_c1_controller
+-- Compiling module picorv32_rtl1_tessent_edt_c1_spatial_compactor_30_w_output_lockup
+-- Compiling module picorv32_rtl1_tessent_edt_c1_config1_spatial_compactor_2
+-- Compiling module picorv32_rtl1_tessent_edt_c1_compactor
+-- Compiling module picorv32_rtl1_tessent_edt_c1_bypass_logic
+-- Compiling module picorv32_rtl1_tessent_edt_c1
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Top level modules:
+	picorv32_rtl1_tessent_edt_c1
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 5"; fi
+
+# Entry 6
+vlog -work tsdb_ijtag_graybox -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/ijtag_graybox/picorv32.v_ijtag_graybox" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work tsdb_ijtag_graybox -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/ijtag_graybox/picorv32.v_ijtag_graybox -f questa.arguments_1 
+-- Compiling module picorv32
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Referenced (but uncompiled) modules or primitives:
+	picorv32_rtl1_tessent_occ
+	picorv32_rtl1_tessent_edt_c1
+
+Top level modules:
+	picorv32
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 6"; fi
+
+# Entry 7
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "./patterns_directory/ICLNetwork.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ./patterns_directory/ICLNetwork.v -f questa.arguments_1 
+-- Compiling module TB
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Top level modules:
+	TB
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 7"; fi
+
+# Entry 8
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "./patterns.configuration"
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+Start time: 12:10:04 on Nov 20,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ./patterns.configuration 
+-- Compiling configuration ICLNetwork_configuration
+
+Top level modules:
+	ICLNetwork_configuration
+End time: 12:10:04 on Nov 20,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 8"; fi
+
+if [ $xitval -ne 0 ]; then
+  echo "Compilation failed"
+  exit $xitval
+fi
+
+vsim -c -lib "dut_work" -L dut_work -L tsdb_ijtag_graybox -do 'run -all; exit' +nowarnTFMPC +NEWPATH=./patterns_directory \
+      ICLNetwork_configuration
+Reading pref.tcl
+
+# 2024.3_2
+
+# vsim -64 -c -lib dut_work -L dut_work -L tsdb_ijtag_graybox -do "run -all; exit" "+nowarnTFMPC" "+NEWPATH=./patterns_directory" ICLNetwork_configuration 
+# Start time: 12:10:05 on Nov 20,2025
+# ** Note: (vsim-3812) Design is being optimized...
+# //  Questa Sim-64
+# //  Version 2024.3_2 linux_x86_64 Nov 25 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading work.ICLNetwork_configuration(fast)
+# Loading work.TB(fast)
+# run -all
+# Found New Path ./patterns_directory
+# 
+# Loading ./patterns_directory/ICLNetwork.v.0.vec
+# 
+# 0ns: Pattern_set picorv32
+# Simulated 1 scan patterns
+# 
+# Simulation finished at time 301
+# Number of miscompares            =           0
+# Number of 0/1 compares           =           0
+# Number of Z compares             =           0
+# 
+# No error between simulated and expected patterns
+# 
+# ** Note: $finish    : ./patterns_directory/ICLNetwork.v(796)
+#    Time: 302 ns  Iteration: 1  Instance: /TB
+# End time: 12:10:05 on Nov 20,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 0
+if [ $? != 0 ] ; then xitval=-1; fi
+
+if [ $xitval -ne 0 ]; then
+  echo "Simulation failed"
+fi
+
+exit $xitval
+exit0

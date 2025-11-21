@@ -1,0 +1,24 @@
+gps_baseband : Logic only unwrapped core.
+---------------------------------------
+
+1.insert_edt_occ: This step inserts EDT and standard OCC at RTL using DFTSpec with design_id rtl1 and NO IJTAG
+        run script: run_insert_edt_occ
+        Log file : logfiles/run_insert_edt_occ.log
+
+2.synthesis: This step performs synthesis of the entire gps_baseband
+        Run script: run_dc_synthesis
+        Log file : logfiles/run_dc_synthesis.log
+
+3.scan_insertion: This step performs scan chain insertion and stitching using design_id gate
+        run script: run_scan_insertion
+        Log file : logfiles/run_scan_insertion.log
+
+4.ATPG_patterns: This step performs ATPG pattern generation. The testbenches are stored inside patterns directory
+        Scripts to use: run_stuck
+                        run_transition
+                        run_sims
+
+       Log files: logfiles/run_stuck.log
+                  logfiles/run_transition.log
+                  logfiles/verilog.log_*
+

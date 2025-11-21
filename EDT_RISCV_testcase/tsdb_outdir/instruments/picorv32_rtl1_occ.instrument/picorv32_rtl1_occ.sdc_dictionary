@@ -1,0 +1,51 @@
+#--------------------------------------------------------------------------
+#
+#  Unpublished work. Copyright 2024 Siemens
+#
+#  This material contains trade secrets or otherwise confidential 
+#  information owned by Siemens Industry Software Inc. or its affiliates 
+#  (collectively, SISW), or its licensors. Access to and use of this 
+#  information is strictly limited as set forth in the Customer's 
+#  applicable agreements with SISW.
+#
+#--------------------------------------------------------------------------
+#  File created by: Tessent Shell
+#          Version: 2024.4
+#       Created on: Thu Nov 20 12:09:51 EST 2025
+#--------------------------------------------------------------------------
+
+set picorv32_rtl1_tessent_occ {
+  picorv32_rtl1_tessent_occ {
+    custom0 {
+      comment {Stop timing check of the select of the clock_out clock mux.}
+      code {set_disable_timing [tessent_get_pins {$tessent_occ_controller_instance/tessent_persistent_cell_clock_out*_mux/s}]}
+    }
+    custom1 {
+      comment {Clocks are gated when switching this clock mux.}
+      code {set_disable_clock_gating_check [tessent_get_cells {$tessent_occ_controller_instance/occ_control/tessent_persistent_cell_SHIFT_REG_CLK*_mux}]}
+    }
+    type standard
+    fast_clock_buffer tessent_persistent_cell_fast_clock_buf
+    slow_clock_buffer tessent_persistent_cell_slow_clock_buf
+    clock_cell_prefix tessent_persistent_cell_
+    clock_buffer_pins {
+      a y
+    }
+    clock_mux_pins {
+      a b
+      s y
+    }
+    cts_exclude_pins {occ_control/tessent_persistent_cell_ltest_ntc_sync_cell/clk occ_control/tessent_persistent_cell_cgc_SHIFT_REG_CLK/clk occ_control/tessent_persistent_cell_SHIFT_REG_CLK_mux/b}
+    scan_in_buffer tessent_persistent_cell_scan_in_buf
+    buffer_pins {
+      a y
+    }
+    port_connections {
+      fast_clock clk
+      slow_clock OptionalDftSignal(shift_capture_clock)
+      scan_en OptionalDftSignal(scan_en)
+      test_mode test_mode
+      fast_capture_mode fast_capture_mode
+    }
+  }
+}

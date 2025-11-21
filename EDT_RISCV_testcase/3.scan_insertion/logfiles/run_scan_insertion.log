@@ -1,0 +1,292 @@
+/opt/mentor/tessent-2024/tessent/bin/tessent -shell -log logfiles/./run_scan_insertion.log -replace -dofile ./run_scan_insertion
+//  Tessent Shell  2024.4    Mon Dec 02 21:53:26 GMT 2024
+//                Unpublished work. Copyright 2024 Siemens
+//
+//      This material contains trade secrets or otherwise confidential 
+//  information owned by Siemens Industry Software Inc. or its affiliates 
+//   (collectively, "SISW"), or its licensors. Access to and use of this 
+//     information is strictly limited as set forth in the Customer's 
+//                   applicable agreements with SISW. 
+//
+//  Siemens software executing under x86-64 Linux on Thu Nov 20 21:19:27 EST 2025.
+//  64 bit version
+//  Host: vlsi-cmp-00.egr.duke.edu (515084 MB RAM, 4095 MB Swap)
+//
+//  command: #! /bin/sh -f
+//  command: # exec tessent -shell -log logfiles/$0.log -replace -dofile "$0"
+//  command: set_context dft -scan 
+//  command: # If the tsdb_outdir is not to be created in the current working directory use the following
+//  command: set_tsdb_output_directory ../tsdb_outdir
+//  command: # Reading the tessent cell library
+//  command: read_cell_library ../library/tessent/dft_sim.tcelllib
+//  Reading DFT Library file ../library/tessent/dft_sim.tcelllib
+//  Finished reading file ../library/tessent/dft_sim.tcelllib
+//  command: # Reading the synthesized netlist from DC Shell
+//  command: read_verilog ../2.synthesis/picorv32.vg
+//  command: # Use read_design to read in information(DFT signals etc) performed in previous pass.
+//  command: read_design picorv32 -design_identifier rtl1 -no_hdl -verbose
+//  sub-command: read_icl ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.icl -skip_child_blocks -no_notes
+//  sub-command: source ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.pdl
+//  sub-command: read_core_descriptions ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.tcd
+//  command: set_current_design picorv32
+//  Warning: 128 cases: Undriven net in netlist module
+//  Warning: 198 cases: Net in netlist not connected
+//  Note: Issue set_current_design with the -show_elaboration_warnings option to see more details about previous warnings
+//  ---------------------------------------------------------------------------
+//  Begin ICL elaboration and checking.
+//  -----------------------------------
+//  ICL elaboration completed, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  Warning: Primary input 'tessent_persistent_cell_shift_capture_clock/clkg_pport' is added at pin '/tessent_persistent_cell_shift_capture_clock/clkg'
+//  command: # To fix S1 violations
+//  command: set_test_logic -reset on
+//  command: # The EDT instances aren't scanned by using the attribute filter is_non_scannable
+//  command: set_system_mode analysis
+//  Warning: Rule FN1 violation occurs 326 times
+//  Flattening process completed, cell instances=10110, gates=22255, PIs=114+2(pseudo ports), POs=309, CPU time=0.12 sec.
+//  ---------------------------------------------------------------------------
+//  Begin circuit learning analyses.
+//  --------------------------------
+//  Learning completed, CPU time=0.03 sec.
+//  ---------------------------------------------------------------------------
+//  Begin scan chain identification process, memory elements = 2532,
+//  sequential library cells = 2532.
+//  ---------------------------------------------------------------------------
+//  Begin simulation of auto-generated load_unload procedure.
+//  Simulation of load_unload procedure completed, CPU time=0.0 sec.
+//  Scan segment = /picorv32_rtl1_tessent_occ_clk_inst/scan_out successfully traced with scan_cells = 3.
+//  1 external shadows that use shift clocking have been identified.
+//  3 scan cells have been identified in 1 scan segment.
+//  Warning: 1 edge-triggered clock ports set to stable high. (D7)
+//  Warning: Model 'RTLC_LDN' has no muxscan scan equivalent and is treated as nonscan model
+//  ------------------------------------------------------------------------------
+//  203 sequential library cells are treated as non-scan.
+//  ------------------------------------------------------------------------------
+//      2 sequential library cells missing mux-scan equivalent.
+//      7 sequential library cells below hard module.          
+//    194 sequential library cells defined non-scan.           
+//  ---------------------------------------------------------------------------
+//  Begin scannability rules checking for 2325 sequential library cells
+//  and 1 scan segment. The scan segment contains 4 additional cells.
+//  ---------------------------------------------------------------------------
+//  Note: There were 72 S7 violations (Potentially scannable cell that is not in the clock path is driven by a constant value).
+//  2325 sequential library cells and 1 scan segment identified as scannable.
+//  ---------------------------------------------------------------------------
+//  Begin transparent latch checking for 4 latches.
+//  ---------------------------------------------------------------------------
+//  Number transparent latches = 4.
+//  ---------------------------------------------------------------------------
+//  Begin scan clock rules checking.
+//  ---------------------------------------------------------------------------
+//  4 scan clock/set/reset lines have been identified.
+//  All scan clocks successfully passed off-state check.
+//  2519 sequential cells passed clock stability checking.
+//  There were 19 clock rule C3 fails (clock may capture data affected by its captured data).
+//  Note: Trailing edge triggered device can capture data affected by leading edge.
+//  ---------------------------------------------------------------------------
+//  202 non-scan memory elements are identified.
+//  ---------------------------------------------------------------------------
+//    1 non-scan memory element is   identified as TIE-1.  (D5)
+//  197 non-scan memory elements are identified as INIT-X. (D5)
+//    4 non-scan memory elements are identified as TLA.    (D5)
+//  ---------------------------------------------------------------------------
+//  ---------------------------------------------------------------------------
+//  Begin gating checking
+//  ---------------------------------------------------------------------------
+//  ---------------------------------------------------------------------------
+//  Checking reset for 1 non-scannable sequential instances
+//  ---------------------------------------------------------------------------
+//  1 sequential instances can be gated to be scannable
+//  0 sequential instances remain non-scannable
+//  ---------------------------------------------------------------------------
+//  Begin shift register identification for 2325 sequential library cells.
+//  ---------------------------------------------------------------------------
+//  Number of shift register flops recorded for scan insertion: 4 (0.16%)
+//  Number of shift registers recorded for scan insertion: 2
+//  Longest shift register has 2 flops.
+//  Shortest shift register has 2 flops.
+//  Potential number of nonscan flops to be converted to scan cells: 2
+//  Potential number of scan cells to be converted to nonscan flops: 0
+//  Number of targeted sequential library cells = 2325
+//  command: report_clocks 
+User-defined Clocks (4):
+=========================
+
+  Sync and Async Source Clocks
+  ============================
+   --------------------------------------------------------  -------------------  ---------  --------  ----------------  ----------------------------------------------------------------------------
+   Name                                                      Label                Off State  Internal  Other Properties  Pin(s)                                                                      
+   --------------------------------------------------------  -------------------  ---------  --------  ----------------  ----------------------------------------------------------------------------
+   'test_clock_w'                                            test_clock_w             0         No                                                                                                   
+   'tessent_persistent_cell_shift_capture_clock/clkg_pport'  ck0                      0         Yes                      'tessent_persistent_cell_shift_capture_clock/clkg'                          
+   'inferred_occ_clock0'                                     inferred_occ_clock0      0         Yes      Capture only    'picorv32_rtl1_tessent_occ_clk_inst/tessent_persistent_cell_clock_out_mux/y'
+   'clk'                                                     clk                      0         No                                                                                                   
+
+//  command: # Find edt_instance
+//  command: set edt_instance [get_instances -of_icl_instances [get_icl_instances -filter tessent_instrument_type==mentor::edt]]
+//  command: # EDT is already built with Bypass
+//  command: add_scan_mode mode1 -edt_instance $edt_instance
+//  Reading core description file ../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.tcd
+//  Setting the chain count to the number of specified scan connections (60).
+//  command: # Before scan gets inserted can analyze the different scan modes and scan chains
+//  command: analyze_scan_chains 
+//  Chain allocation of 'mode1' mode completed:
+//        60 distributed chains of sizes ranging from 38 to 39
+//  command: report_scan_chains 
+
+===============================
+Scan Chains Created by the Tool
+===============================
+
+   Scan mode 'mode1' has 60 scan chains:
+   -------------------------------------
+      chain = chain0   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[0]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[0]  length = 39
+      chain = chain1   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[1]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[1]  length = 39
+      chain = chain2   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[2]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[2]  length = 39
+      chain = chain3   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[3]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[3]  length = 39
+      chain = chain4   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[4]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[4]  length = 39
+      chain = chain5   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[5]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[5]  length = 39
+      chain = chain6   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[6]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[6]  length = 39
+      chain = chain7   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[7]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[7]  length = 39
+      chain = chain8   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[8]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[8]  length = 39
+      chain = chain9   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[9]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[9]  length = 39
+      chain = chain10   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[10]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[10]  length = 39
+      chain = chain11   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[11]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[11]  length = 39
+      chain = chain12   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[12]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[12]  length = 39
+      chain = chain13   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[13]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[13]  length = 39
+      chain = chain14   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[14]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[14]  length = 39
+      chain = chain15   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[15]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[15]  length = 39
+      chain = chain16   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[16]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[16]  length = 39
+      chain = chain17   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[17]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[17]  length = 39
+      chain = chain18   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[18]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[18]  length = 39
+      chain = chain19   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[19]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[19]  length = 39
+      chain = chain20   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[20]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[20]  length = 39
+      chain = chain21   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[21]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[21]  length = 39
+      chain = chain22   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[22]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[22]  length = 39
+      chain = chain23   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[23]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[23]  length = 39
+      chain = chain24   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[24]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[24]  length = 39
+      chain = chain25   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[25]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[25]  length = 39
+      chain = chain26   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[26]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[26]  length = 39
+      chain = chain27   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[27]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[27]  length = 39
+      chain = chain28   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[28]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[28]  length = 39
+      chain = chain29   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[29]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[29]  length = 39
+      chain = chain30   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[30]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[30]  length = 39
+      chain = chain31   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[31]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[31]  length = 39
+      chain = chain32   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[32]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[32]  length = 39
+      chain = chain33   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[33]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[33]  length = 39
+      chain = chain34   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[34]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[34]  length = 39
+      chain = chain35   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[35]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[35]  length = 39
+      chain = chain36   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[36]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[36]  length = 39
+      chain = chain37   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[37]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[37]  length = 39
+      chain = chain38   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[38]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[38]  length = 39
+      chain = chain39   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[39]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[39]  length = 39
+      chain = chain40   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[40]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[40]  length = 39
+      chain = chain41   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[41]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[41]  length = 39
+      chain = chain42   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[42]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[42]  length = 39
+      chain = chain43   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[43]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[43]  length = 39
+      chain = chain44   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[44]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[44]  length = 39
+      chain = chain45   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[45]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[45]  length = 39
+      chain = chain46   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[46]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[46]  length = 39
+      chain = chain47   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[47]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[47]  length = 39
+      chain = chain48   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[48]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[48]  length = 38
+      chain = chain49   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[49]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[49]  length = 38
+      chain = chain50   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[50]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[50]  length = 38
+      chain = chain51   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[51]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[51]  length = 38
+      chain = chain52   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[52]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[52]  length = 38
+      chain = chain53   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[53]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[53]  length = 38
+      chain = chain54   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[54]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[54]  length = 38
+      chain = chain55   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[55]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[55]  length = 38
+      chain = chain56   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[56]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[56]  length = 38
+      chain = chain57   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[57]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[57]  length = 38
+      chain = chain58   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[58]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[58]  length = 38
+      chain = chain59   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[59]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[59]  length = 38
+
+//  command: # Insert scan chains and writes the scan inserted design into the TSDB directory
+//  command: insert_test_logic 
+=============================
+Test Logic Insertion Summary:
+=============================
+
+  Structural Data:
+  ----------------
+                           Added top-level port count:           0
+                                 Added instance count:         121
+
+  Logical Data:
+  -------------
+                           Added retiming logic count:          60
+                       Added scan chain count (mode1):          60
+
+//  Warning: Flattened model deleted.
+//  
+//  Writing out netlist and related files in ../tsdb_outdir/dft_inserted_designs/picorv32_gate.dft_inserted_design
+//  command: report_scan_chains 
+
+===============================
+Scan Chains Created by the Tool
+===============================
+
+   Scan mode 'mode1' has 60 scan chains:
+   -------------------------------------
+      chain = chain0   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[0]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[0]  length = 39
+      chain = chain1   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[1]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[1]  length = 39
+      chain = chain2   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[2]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[2]  length = 39
+      chain = chain3   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[3]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[3]  length = 39
+      chain = chain4   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[4]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[4]  length = 39
+      chain = chain5   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[5]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[5]  length = 39
+      chain = chain6   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[6]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[6]  length = 39
+      chain = chain7   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[7]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[7]  length = 39
+      chain = chain8   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[8]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[8]  length = 39
+      chain = chain9   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[9]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[9]  length = 39
+      chain = chain10   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[10]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[10]  length = 39
+      chain = chain11   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[11]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[11]  length = 39
+      chain = chain12   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[12]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[12]  length = 39
+      chain = chain13   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[13]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[13]  length = 39
+      chain = chain14   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[14]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[14]  length = 39
+      chain = chain15   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[15]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[15]  length = 39
+      chain = chain16   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[16]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[16]  length = 39
+      chain = chain17   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[17]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[17]  length = 39
+      chain = chain18   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[18]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[18]  length = 39
+      chain = chain19   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[19]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[19]  length = 39
+      chain = chain20   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[20]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[20]  length = 39
+      chain = chain21   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[21]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[21]  length = 39
+      chain = chain22   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[22]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[22]  length = 39
+      chain = chain23   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[23]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[23]  length = 39
+      chain = chain24   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[24]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[24]  length = 39
+      chain = chain25   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[25]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[25]  length = 39
+      chain = chain26   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[26]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[26]  length = 39
+      chain = chain27   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[27]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[27]  length = 39
+      chain = chain28   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[28]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[28]  length = 39
+      chain = chain29   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[29]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[29]  length = 39
+      chain = chain30   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[30]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[30]  length = 39
+      chain = chain31   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[31]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[31]  length = 39
+      chain = chain32   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[32]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[32]  length = 39
+      chain = chain33   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[33]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[33]  length = 39
+      chain = chain34   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[34]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[34]  length = 39
+      chain = chain35   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[35]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[35]  length = 39
+      chain = chain36   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[36]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[36]  length = 39
+      chain = chain37   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[37]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[37]  length = 39
+      chain = chain38   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[38]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[38]  length = 39
+      chain = chain39   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[39]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[39]  length = 39
+      chain = chain40   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[40]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[40]  length = 39
+      chain = chain41   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[41]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[41]  length = 39
+      chain = chain42   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[42]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[42]  length = 39
+      chain = chain43   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[43]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[43]  length = 39
+      chain = chain44   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[44]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[44]  length = 39
+      chain = chain45   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[45]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[45]  length = 39
+      chain = chain46   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[46]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[46]  length = 39
+      chain = chain47   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[47]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[47]  length = 39
+      chain = chain48   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[48]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[48]  length = 38
+      chain = chain49   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[49]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[49]  length = 38
+      chain = chain50   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[50]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[50]  length = 38
+      chain = chain51   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[51]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[51]  length = 38
+      chain = chain52   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[52]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[52]  length = 38
+      chain = chain53   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[53]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[53]  length = 38
+      chain = chain54   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[54]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[54]  length = 38
+      chain = chain55   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[55]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[55]  length = 38
+      chain = chain56   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[56]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[56]  length = 38
+      chain = chain57   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[57]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[57]  length = 38
+      chain = chain58   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[58]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[58]  length = 38
+      chain = chain59   group = grp1  input = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_in[59]  output = /picorv32_rtl1_tessent_edt_c1_inst/edt_scan_out[59]  length = 38
+
+//  command: exit 

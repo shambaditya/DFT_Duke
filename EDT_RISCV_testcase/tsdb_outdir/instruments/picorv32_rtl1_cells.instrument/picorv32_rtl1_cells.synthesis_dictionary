@@ -1,0 +1,76 @@
+#--------------------------------------------------------------------------
+#
+#  Unpublished work. Copyright 2024 Siemens
+#
+#  This material contains trade secrets or otherwise confidential 
+#  information owned by Siemens Industry Software Inc. or its affiliates 
+#  (collectively, SISW), or its licensors. Access to and use of this 
+#  information is strictly limited as set forth in the Customer's 
+#  applicable agreements with SISW.
+#
+#--------------------------------------------------------------------------
+#  File created by: Tessent Shell
+#          Version: 2024.4
+#       Created on: Thu Nov 20 12:09:51 EST 2025
+#--------------------------------------------------------------------------
+
+set synthesis_dictionary {
+  design_source_dictionary {
+    read1 {
+      format verilog_2001
+      work_library work
+      files {./picorv32_rtl1_tessent_buf.v ./picorv32_rtl1_tessent_clk_buf.v ./picorv32_rtl1_tessent_inv.v ./picorv32_rtl1_tessent_mux2.v ./picorv32_rtl1_tessent_clk_mux2.v ./picorv32_rtl1_tessent_clk_gate_and.v ./picorv32_rtl1_tessent_posedge_synchronizer_reset.v}
+    }
+  }
+  designs_dictionary {
+    picorv32_rtl1_tessent_buf {
+      output_files {
+        picorv32_rtl1_tessent_buf.vg {
+          module_name_list picorv32_rtl1_tessent_buf
+        }
+      }
+    }
+    picorv32_rtl1_tessent_clk_buf {
+      output_files {
+        picorv32_rtl1_tessent_clk_buf.vg {
+          module_name_list picorv32_rtl1_tessent_clk_buf
+        }
+      }
+    }
+    picorv32_rtl1_tessent_inv {
+      output_files {
+        picorv32_rtl1_tessent_inv.vg {
+          module_name_list picorv32_rtl1_tessent_inv
+        }
+      }
+    }
+    picorv32_rtl1_tessent_mux2 {
+      output_files {
+        picorv32_rtl1_tessent_mux2.vg {
+          module_name_list picorv32_rtl1_tessent_mux2
+        }
+      }
+    }
+    picorv32_rtl1_tessent_clk_mux2 {
+      output_files {
+        picorv32_rtl1_tessent_clk_mux2.vg {
+          module_name_list picorv32_rtl1_tessent_clk_mux2
+        }
+      }
+    }
+    picorv32_rtl1_tessent_clk_gate_and {
+      output_files {
+        picorv32_rtl1_tessent_clk_gate_and.vg {
+          module_name_list picorv32_rtl1_tessent_clk_gate_and
+        }
+      }
+    }
+    picorv32_rtl1_tessent_posedge_synchronizer_reset {
+      output_files {
+        picorv32_rtl1_tessent_posedge_synchronizer_reset.vg {
+          module_name_list picorv32_rtl1_tessent_posedge_synchronizer_reset
+        }
+      }
+    }
+  }
+}

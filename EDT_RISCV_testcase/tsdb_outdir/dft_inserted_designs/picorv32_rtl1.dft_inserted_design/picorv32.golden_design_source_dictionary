@@ -1,0 +1,34 @@
+#-------------------------------------------------
+#  File created by: Tessent Shell
+#          Version: 2024.4
+#       Created on: Thu Nov 20 12:09:56 EST 2025
+#-------------------------------------------------
+
+set design_source_dictionary \
+{
+  read1 {
+    format {
+      "verilog_2001"
+    }
+    work_library {
+      "work"
+    }
+    files {
+      "/home/jh829/tessent_work/EDT_RISCV_testcase/1.insert_edt_occ/../rtl/picorv32.v"
+    }
+    libraries {
+    }
+    extensions {
+    }
+    defines {
+    }
+    incdirs {
+    }
+    options {
+    }
+    is_current_design on
+  }
+  logical_design_library_list {work}
+  default_logical_design_library {work}
+}
+ 

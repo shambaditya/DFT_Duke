@@ -1,0 +1,451 @@
+Number of expected miscompares = 0
+
+
+vlib dut_work
+vlib tsdb_ijtag_graybox
+vmap dut_work dut_work
+QuestaSim-64 vmap 2024.3_2 Lib Mapping Utility 2024.11 Nov 25 2024
+vmap dut_work dut_work 
+Modifying modelsim.ini
+vmap tsdb_ijtag_graybox tsdb_ijtag_graybox
+QuestaSim-64 vmap 2024.3_2 Lib Mapping Utility 2024.11 Nov 25 2024
+vmap tsdb_ijtag_graybox tsdb_ijtag_graybox 
+Modifying modelsim.ini
+
+
+# Entry 1
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/carrier_nco.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:04 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/carrier_nco.v -f questa.arguments_1 
+-- Compiling module carrier_nco
+
+Top level modules:
+	carrier_nco
+End time: 16:08:04 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 1"; fi
+
+# Entry 2
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/accumulator.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:04 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/accumulator.v -f questa.arguments_1 
+-- Compiling module accumulator
+
+Top level modules:
+	accumulator
+End time: 16:08:04 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 2"; fi
+
+# Entry 3
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/code_nco.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:04 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/code_nco.v -f questa.arguments_1 
+-- Compiling module code_nco
+
+Top level modules:
+	code_nco
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:01
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 3"; fi
+
+# Entry 4
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/lpm_counter.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/lpm_counter.v -f questa.arguments_1 
+-- Compiling module lpm_counter
+
+Top level modules:
+	lpm_counter
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 4"; fi
+
+# Entry 5
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/time_base.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/time_base.v -f questa.arguments_1 
+-- Compiling module time_base
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Referenced (but uncompiled) modules or primitives:
+	lpm_counter_ud
+
+Top level modules:
+	time_base
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 5"; fi
+
+# Entry 6
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/carrier_mixer.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/carrier_mixer.v -f questa.arguments_1 
+-- Compiling module carrier_mixer
+
+Top level modules:
+	carrier_mixer
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 6"; fi
+
+# Entry 7
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/code_gen.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/code_gen.v -f questa.arguments_1 
+-- Compiling module code_gen
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Referenced (but uncompiled) modules or primitives:
+	lpm_shiftreg
+
+Top level modules:
+	code_gen
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 7"; fi
+
+# Entry 8
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/epoch_counter.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/epoch_counter.v -f questa.arguments_1 
+-- Compiling module epoch_counter
+
+Top level modules:
+	epoch_counter
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 8"; fi
+
+# Entry 9
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/lpm_counter_ud.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/lpm_counter_ud.v -f questa.arguments_1 
+-- Compiling module lpm_counter_ud
+
+Top level modules:
+	lpm_counter_ud
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 9"; fi
+
+# Entry 10
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/lpm_shiftreg.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/lpm_shiftreg.v -f questa.arguments_1 
+-- Compiling module lpm_shiftreg
+
+Top level modules:
+	lpm_shiftreg
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 10"; fi
+
+# Entry 11
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/tracking_channel.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../rtl/tracking_channel.v -f questa.arguments_1 
+-- Compiling module tracking_channel
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Top level modules:
+	tracking_channel
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 11"; fi
+
+# Entry 12
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/modified_rtl_files/gps_baseband.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/modified_rtl_files/gps_baseband.v -f questa.arguments_1 
+-- Compiling module gps_baseband
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Referenced (but uncompiled) modules or primitives:
+	gps_baseband_rtl1_tessent_clk_gate_and
+	gps_baseband_rtl1_tessent_inv
+	gps_baseband_rtl1_tessent_occ
+	gps_baseband_rtl1_tessent_edt_c1
+
+Top level modules:
+	gps_baseband
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 12"; fi
+
+# Entry 13
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_mux2.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_mux2.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_gate_and.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_posedge_synchronizer_reset.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_mux2.v ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_mux2.v ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_gate_and.v ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_posedge_synchronizer_reset.v -f questa.arguments_1 
+-- Compiling module gps_baseband_rtl1_tessent_mux2
+-- Compiling module gps_baseband_rtl1_tessent_clk_mux2
+-- Compiling module gps_baseband_rtl1_tessent_clk_gate_and
+-- Compiling module gps_baseband_rtl1_tessent_posedge_synchronizer_reset
+
+Top level modules:
+	gps_baseband_rtl1_tessent_mux2
+	gps_baseband_rtl1_tessent_clk_mux2
+	gps_baseband_rtl1_tessent_clk_gate_and
+	gps_baseband_rtl1_tessent_posedge_synchronizer_reset
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 13"; fi
+
+# Entry 14
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_buf.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_buf.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_inv.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_buf.v ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_buf.v ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_inv.v -f questa.arguments_1 
+-- Compiling module gps_baseband_rtl1_tessent_buf
+-- Compiling module gps_baseband_rtl1_tessent_clk_buf
+-- Compiling module gps_baseband_rtl1_tessent_inv
+
+Top level modules:
+	gps_baseband_rtl1_tessent_buf
+	gps_baseband_rtl1_tessent_clk_buf
+	gps_baseband_rtl1_tessent_inv
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 14"; fi
+
+# Entry 15
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_occ.instrument/gps_baseband_rtl1_tessent_occ.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_occ.instrument/gps_baseband_rtl1_tessent_occ.v -f questa.arguments_1 
+-- Compiling module gps_baseband_rtl1_tessent_occ
+-- Compiling module gps_baseband_rtl1_tessent_occ_control
+-- Compiling module gps_baseband_rtl1_tessent_occ_shift_reg
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Top level modules:
+	gps_baseband_rtl1_tessent_occ
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 15"; fi
+
+# Entry 16
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_edt.instrument/gps_baseband_rtl1_tessent_edt_c1.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/instruments/gps_baseband_rtl1_edt.instrument/gps_baseband_rtl1_tessent_edt_c1.v -f questa.arguments_1 
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_decompressor
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_low_power_shift_decoder
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_low_power_shift_controller
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_onehot_decoder_4_to_15
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_onehot_decoder_6_to_60
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_xor_decoder
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_plugin_xor_decoder
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_controller
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_spatial_compactor_15_w_output_lockup
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_config1_spatial_compactor_4
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_compactor
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1_bypass_logic
+-- Compiling module gps_baseband_rtl1_tessent_edt_c1
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Top level modules:
+	gps_baseband_rtl1_tessent_edt_c1
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 16"; fi
+
+# Entry 17
+vlog -work tsdb_ijtag_graybox -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work tsdb_ijtag_graybox -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox -f questa.arguments_1 
+-- Compiling module gps_baseband
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Referenced (but uncompiled) modules or primitives:
+	gps_baseband_rtl1_tessent_occ
+	gps_baseband_rtl1_tessent_edt_c1
+
+Top level modules:
+	gps_baseband
+End time: 16:08:05 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 17"; fi
+
+# Entry 18
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "./patterns_directory/ICLNetwork.v" \
+      -f questa.arguments_1
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:05 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ./patterns_directory/ICLNetwork.v -f questa.arguments_1 
+-- Compiling module TB
+-- Scanning library file '/opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v'
+
+Top level modules:
+	TB
+End time: 16:08:06 on Oct 29,2025, Elapsed time: 0:00:01
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 18"; fi
+
+# Entry 19
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "./patterns.configuration"
+QuestaSim-64 vlog 2024.3_2 Compiler 2024.11 Nov 25 2024
+** Warning: (vlog-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+Start time: 16:08:06 on Oct 29,2025
+vlog -work dut_work -L dut_work -mixedansiports "+librescan" -ysearchlib -mfcu ./patterns.configuration 
+-- Compiling configuration ICLNetwork_configuration
+
+Top level modules:
+	ICLNetwork_configuration
+End time: 16:08:06 on Oct 29,2025, Elapsed time: 0:00:00
+Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 19"; fi
+
+if [ $xitval -ne 0 ]; then
+  echo "Compilation failed"
+  exit $xitval
+fi
+
+vsim -c -lib "dut_work" -L dut_work -L tsdb_ijtag_graybox -do 'run -all; exit' +nowarnTFMPC +NEWPATH=./patterns_directory \
+      ICLNetwork_configuration
+Reading pref.tcl
+
+# 2024.3_2
+
+# vsim -64 -c -lib dut_work -L dut_work -L tsdb_ijtag_graybox -do "run -all; exit" "+nowarnTFMPC" "+NEWPATH=./patterns_directory" ICLNetwork_configuration 
+# Start time: 16:08:06 on Oct 29,2025
+# ** Warning: (vsim-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+# //  Questa Sim-64
+# //  Version 2024.3_2 linux_x86_64 Nov 25 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading dut_work.ICLNetwork_configuration
+# Loading dut_work.TB
+# Loading tsdb_ijtag_graybox.gps_baseband
+# Loading dut_work.gps_baseband_rtl1_tessent_occ
+# Loading dut_work.gps_baseband_rtl1_tessent_clk_buf
+# Loading dut_work.gps_baseband_rtl1_tessent_buf
+# Loading dut_work.gps_baseband_rtl1_tessent_occ_control
+# Loading dut_work.gps_baseband_rtl1_tessent_posedge_synchronizer_reset
+# Loading dut_work.gps_baseband_rtl1_tessent_clk_gate_and
+# Loading dut_work.gps_baseband_rtl1_tessent_clk_mux2
+# Loading dut_work.gps_baseband_rtl1_tessent_occ_shift_reg
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_decompressor
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_compactor
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_spatial_compactor_15_w_output_lockup
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_config1_spatial_compactor_4
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_controller
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_low_power_shift_controller
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_low_power_shift_decoder
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_plugin_xor_decoder
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_xor_decoder
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_onehot_decoder_4_to_15
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_onehot_decoder_6_to_60
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_bypass_logic
+# Loading dut_work.gps_baseband_rtl1_tessent_mux2
+# run -all
+# Found New Path ./patterns_directory
+# 
+# Loading ./patterns_directory/ICLNetwork.v.0.vec
+# 
+# 0ns: Pattern_set gps_baseband
+# Simulated 1 scan patterns
+# 
+# Simulation finished at time 301
+# Number of miscompares            =           0
+# Number of 0/1 compares           =           0
+# Number of Z compares             =           0
+# 
+# No error between simulated and expected patterns
+# 
+# ** Note: $finish    : ./patterns_directory/ICLNetwork.v(796)
+#    Time: 302 ns  Iteration: 1  Instance: :TB
+# End time: 16:08:06 on Oct 29,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1
+if [ $? != 0 ] ; then xitval=-1; fi
+
+if [ $xitval -ne 0 ]; then
+  echo "Simulation failed"
+fi
+
+exit $xitval
+exit0

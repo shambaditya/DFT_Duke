@@ -1,0 +1,60 @@
+/opt/mentor/tessent-2024/tessent/bin/tessent -shell -log logfiles/./run_ts_synthesis.log -replace -dofile ./run_ts_synthesis
+//  Tessent Shell  2024.4    Mon Dec 02 21:53:26 GMT 2024
+//                Unpublished work. Copyright 2024 Siemens
+//
+//      This material contains trade secrets or otherwise confidential 
+//  information owned by Siemens Industry Software Inc. or its affiliates 
+//   (collectively, "SISW"), or its licensors. Access to and use of this 
+//     information is strictly limited as set forth in the Customer's 
+//                   applicable agreements with SISW. 
+//
+//  Siemens software executing under x86-64 Linux on Thu Nov 20 20:57:27 EST 2025.
+//  64 bit version
+//  Host: vlsi-cmp-00.egr.duke.edu (515084 MB RAM, 4095 MB Swap)
+//
+//  command: #! /bin/sh -f
+//  command: # exec tessent -shell -log logfiles/$0.log -replace -dofile "$0"
+//  command: # Set the context to insert DFT into RTL-level design
+//  command: set_context dft -rtl
+//  command: read_cell_library ../library/tessent/dft_sim.tcelllib
+//  Reading DFT Library file ../library/tessent/dft_sim.tcelllib
+//  Finished reading file ../library/tessent/dft_sim.tcelllib
+//  command: # Set the location of the TSDB. Default is the current working directory.
+//  command: set_tsdb_output_directory ../tsdb_outdir
+//  command: read_design picorv32 -design_id rtl1
+//  command: set_current_design picorv32
+//  Note: 103 duplicate cell library models were read. The last model read of the same name was kept.
+//        To see detailed messages per duplicate model, issue 'set_cell_library_options -report_duplicate_models on'
+//        before issuing 'read_cell_library'.
+//  ---------------------------------------------------------------------------
+//  Begin ICL elaboration and checking.
+//  -----------------------------------
+//  ICL elaboration completed, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  command: # Set the design level as physical_block
+//  command: set_design_level physical_block
+//  command: set_attribute_value [get_modules -of_type design] -name synthesize_before_analysis
+//  command: check_design_rules 
+//  Warning: 14 modules with attribute 'synthesize_before_analysis' were not synthesized. Use this command to access them:
+//           get_modules * -filter "synthesize_before_analysis && !is_synthesized && (type==cell || type==primitive || is_blackbox || has_no_definition || exclude_from_synthesis || (!has_rtl  && format!=sv2009))"
+//  ---------------------------------------------------------------------------
+//  Begin RTL synthesis.
+//  --------------------
+//  Synthesized modules=17, Time=1.99 sec.
+//  Note: There were 17 modules selectively synthesized. There were also 27 sub-modules created by synthesis.
+//        Use 'get_module -filter is_synthesized' to see them.
+//        You can also use 'set_quick_synthesis_options -verbose on' to have the synthesis step report the
+//        synthesized module names in the transcript as they are being synthesized.
+//  ---------------------------------------------------------------------------
+//  Flattening process completed, cell instances=10110, gates=22130, PIs=114, POs=309, CPU time=0.11 sec.
+//  ---------------------------------------------------------------------------
+//  Begin circuit learning analyses.
+//  --------------------------------
+//  Learning completed, CPU time=0.03 sec.
+//  ---------------------------------------------------------------------------
+//  Begin transparent latch checking for 5 latches.
+//  ---------------------------------------------------------------------------
+//  Warning: 2 latches not transparent due to uncontrollable. (D6)
+//  Number transparent latches = 3.
+//  command: write_design -output_file picorv32.vg -replace
+//  command: exit 

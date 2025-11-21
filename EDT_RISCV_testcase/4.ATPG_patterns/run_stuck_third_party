@@ -1,0 +1,4 @@
+#! /bin/sh -f
+#\
+export SCAN_TOOL=Third_party
+tessent -shell -log logfiles/$0.log -replace -dofile stuck.do

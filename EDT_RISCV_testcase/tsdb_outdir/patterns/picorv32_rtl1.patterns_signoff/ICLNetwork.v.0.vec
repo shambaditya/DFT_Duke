@@ -1,0 +1,29 @@
+//
+// Verilog format test patterns produced by Tessent Shell 2024.4
+// Filename       : ../tsdb_outdir/patterns/picorv32_rtl1.patterns_signoff/ICLNetwork.v.0.vec
+// Idstamp        : 2024.4:ec94:9fce:0:0000
+// Date           : Thu Nov 20 12:09:58 2025
+//
+// Format of broadside vector:
+//   PI_bits PO_bits MASK_bits Increment_bit Timeplate_bits(1) PatType_bits(3)
+//   VecType_bits(4)
+//   Increment_bit  - indicates when to increment pattern count
+//   Timeplate_bits - encodes timeplate number to use
+//   PatType_bits   - encodes pattern type
+//   VecType_bits   - encodes vector type
+
+// Scan test block
+
+// Pattern 0 Cycle 0 Timestamp 0 ns 
+000000000000000000000000000001000110000
+ // Start Pattern (0) MSG
+// Pattern_set picorv32 
+000000000000000000000000000101000110000
+// Simulation Cycle 0  Timestamp 0 ns
+0Z10101011
+// + System reset 
+0Z10101011
+0Z10101011
+// Total count SimulationCycles:3 Timestamp:300 ns
+// end of Vec file MSG
+000000000000000000000000000000110110000

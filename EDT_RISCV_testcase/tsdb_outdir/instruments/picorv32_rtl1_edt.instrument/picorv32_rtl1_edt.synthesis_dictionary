@@ -1,0 +1,29 @@
+#-------------------------------------------------
+#  File created by: Tessent Shell
+#          Version: 2024.4
+#       Created on: Thu Nov 20 12:09:55 EST 2025
+#-------------------------------------------------
+
+set synthesis_dictionary {
+  design_source_dictionary {
+    read1 {
+      format verilog_2001
+      work_library work
+      files ./picorv32_rtl1_tessent_edt_c1.v
+    }
+  }
+  designs_dictionary {
+    picorv32_rtl1_tessent_edt_c1 {
+      size_only_prefix_list tessent_persistent_cell_
+      output_files {
+        picorv32_rtl1_tessent_edt_c1.vg {
+          module_name_list picorv32_rtl1_tessent_edt_c1*
+        }
+      }
+      sdc {
+        file_name picorv32_rtl1_edt.sdc
+        proc_list picorv32_rtl1_tessent_edt_c1
+      }
+    }
+  }
+}

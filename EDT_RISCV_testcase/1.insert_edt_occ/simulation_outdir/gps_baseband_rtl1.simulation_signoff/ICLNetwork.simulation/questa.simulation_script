@@ -1,0 +1,150 @@
+#!/bin/sh
+unset noclobber
+xitval=0
+
+if [ -f ./questa.setup_script ] ; then
+  . ./questa.setup_script
+fi
+
+echo "Number of expected miscompares = 0"
+set -v
+
+
+vlib dut_work
+vlib tsdb_ijtag_graybox
+vmap dut_work dut_work
+vmap tsdb_ijtag_graybox tsdb_ijtag_graybox
+
+
+# Entry 1
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/carrier_nco.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 1"; fi
+
+# Entry 2
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/accumulator.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 2"; fi
+
+# Entry 3
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/code_nco.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 3"; fi
+
+# Entry 4
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/lpm_counter.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 4"; fi
+
+# Entry 5
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/time_base.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 5"; fi
+
+# Entry 6
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/carrier_mixer.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 6"; fi
+
+# Entry 7
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/code_gen.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 7"; fi
+
+# Entry 8
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/epoch_counter.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 8"; fi
+
+# Entry 9
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/lpm_counter_ud.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 9"; fi
+
+# Entry 10
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/lpm_shiftreg.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 10"; fi
+
+# Entry 11
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../rtl/tracking_channel.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 11"; fi
+
+# Entry 12
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/modified_rtl_files/gps_baseband.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 12"; fi
+
+# Entry 13
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_mux2.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_mux2.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_gate_and.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_posedge_synchronizer_reset.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 13"; fi
+
+# Entry 14
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_buf.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_clk_buf.v" \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_cells.instrument/gps_baseband_rtl1_tessent_inv.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 14"; fi
+
+# Entry 15
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_occ.instrument/gps_baseband_rtl1_tessent_occ.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 15"; fi
+
+# Entry 16
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/instruments/gps_baseband_rtl1_edt.instrument/gps_baseband_rtl1_tessent_edt_c1.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 16"; fi
+
+# Entry 17
+vlog -work tsdb_ijtag_graybox -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 17"; fi
+
+# Entry 18
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "./patterns_directory/ICLNetwork.v" \
+      -f questa.arguments_1
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 18"; fi
+
+# Entry 19
+vlog -work dut_work -L dut_work -mixedansiports +librescan  -ysearchlib -mfcu \
+      "./patterns.configuration"
+if [ $? != 0 ] ; then xitval=-1; echo "Failure on entry 19"; fi
+
+if [ $xitval -ne 0 ]; then
+  echo "Compilation failed"
+  exit $xitval
+fi
+
+vsim -c -lib "dut_work" -L dut_work -L tsdb_ijtag_graybox -do 'run -all; exit' +nowarnTFMPC +NEWPATH=./patterns_directory \
+      ICLNetwork_configuration
+if [ $? != 0 ] ; then xitval=-1; fi
+
+if [ $xitval -ne 0 ]; then
+  echo "Simulation failed"
+fi
+
+exit $xitval

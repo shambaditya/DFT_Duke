@@ -1,0 +1,35 @@
+m255
+K4
+z2
+!s11f vlog 2024.3_2 2024.11, Nov 25 2024
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 d/home/jh829/tessent_work/EDT_no_OCC_NO_IJTAG_testcase/1.insert_edt_occ/simulation_outdir/gps_baseband_rtl1.simulation_signoff/ICLNetwork.simulation
+vgps_baseband
+2../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox
+!s110 1761768485
+!i10b 1
+!s100 PR6dmQ7GPfBJ9HbjjzMLk2
+IW_b]LZQ8^ZK=K9IN2k7RB2
+R0
+w1761768477
+8../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox
+F../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox
+!i122 0
+L0 2 57
+VDg1SIo80bB@j0V0VzS_@n1
+OL;L;2024.3_2;79
+r1
+!s85 0
+31
+!s108 1761768485.000000
+!s107 ../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox|
+!s90 -work|tsdb_ijtag_graybox|-L|dut_work|-mixedansiports|+librescan|-ysearchlib|-mfcu|../../../../tsdb_outdir/dft_inserted_designs/gps_baseband_rtl1.dft_inserted_design/ijtag_graybox/gps_baseband.v_ijtag_graybox|-f|questa.arguments_1|
+!i113 1
+o-work tsdb_ijtag_graybox -L dut_work -mixedansiports +librescan -mfcu -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+!s92 -work tsdb_ijtag_graybox -L dut_work -mixedansiports +librescan -mfcu -v /opt/mentor/tessent-2024/tessent/lnx-x86/lib64/hdleng/lib/dft_sim.v -L mtiAvm -L mtiRnm -L mtiOvm -L mtiUvm -L mtiUPF -L infact
+tCvgOpt 0

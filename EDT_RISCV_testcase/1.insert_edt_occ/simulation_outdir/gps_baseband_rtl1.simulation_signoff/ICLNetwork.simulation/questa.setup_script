@@ -1,0 +1,9 @@
+#!/bin/sh
+export PATH='.:/opt/mentor/tessent-2024/tessent/bin:/home/jh829/questa_wrappers:/home/jh829/.vscode-server/cli/servers/Stable-7d842fb85a0275a4a8e4d7e040d2625abbf7f084/server/bin/remote-cli:/usr/share/Modules/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/puppetlabs/bin:/home/jh829/.vscode-server/data/User/globalStorage/github.copilot-chat/debugCommand:/opt/mentor/questa-2024/questasim/bin'
+export MTI_VCO_MODE='64'
+export LD_LIBRARY_PATH='/opt/mentor/tessent-2024/tessent/lnx-x86/lib64:/usr/lib64:/opt/cadence/innovus211/tools.lnx86/voltus_components/xp_tools/anls/lib:/usr/lib64:/opt/cadence/innovus211/tools.lnx86/voltus_components/xp_tools/anls/lib:/usr/lib64:/opt/cadence/innovus211/tools.lnx86/voltus_components/xp_tools/anls/lib:'
+export JAGUAR_HOME='/opt/mentor/tessent-2024/tessent_2024.4'
+export MGLS_HOME='/opt/mentor/tessent-2024/tessent/lnx-x86/bin64/'
+export TERM_PROGRAM_VERSION='1.105.1'
+export LM_LICENSE_FILE='27500@license01.egr.duke.edu'
+if [ "$TESSENT_HOME" = "" ] ; then export TESSENT_HOME='/opt/mentor/tessent-2024/tessent'; fi

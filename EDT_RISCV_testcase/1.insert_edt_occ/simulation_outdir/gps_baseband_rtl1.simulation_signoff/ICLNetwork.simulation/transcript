@@ -1,0 +1,61 @@
+# vsim -64 -c -lib dut_work -L dut_work -L tsdb_ijtag_graybox -do "run -all; exit" "+nowarnTFMPC" "+NEWPATH=./patterns_directory" ICLNetwork_configuration 
+# Start time: 16:08:06 on Oct 29,2025
+# ** Warning: (vsim-8891) All optimizations are disabled because the -novopt option is in effect. This will cause your simulation to run very slowly. If you are using this switch to preserve visibility for Debug or PLI features, please see the User's Manual section on Preserving Object Visibility with vopt. -novopt option is now deprecated and will be removed in future releases.
+# //  Questa Sim-64
+# //  Version 2024.3_2 linux_x86_64 Nov 25 2024
+# //
+# // Unpublished work. Copyright 2024 Siemens
+# //
+# // This material contains trade secrets or otherwise confidential information
+# // owned by Siemens Industry Software Inc. or its affiliates (collectively,
+# // "SISW"), or its licensors. Access to and use of this information is strictly
+# // limited as set forth in the Customer's applicable agreements with SISW.
+# //
+# // This material may not be copied, distributed, or otherwise disclosed outside
+# // of the Customer's facilities without the express written permission of SISW,
+# // and may not be used in any way not expressly authorized by SISW.
+# //
+# Loading dut_work.ICLNetwork_configuration
+# Loading dut_work.TB
+# Loading tsdb_ijtag_graybox.gps_baseband
+# Loading dut_work.gps_baseband_rtl1_tessent_occ
+# Loading dut_work.gps_baseband_rtl1_tessent_clk_buf
+# Loading dut_work.gps_baseband_rtl1_tessent_buf
+# Loading dut_work.gps_baseband_rtl1_tessent_occ_control
+# Loading dut_work.gps_baseband_rtl1_tessent_posedge_synchronizer_reset
+# Loading dut_work.gps_baseband_rtl1_tessent_clk_gate_and
+# Loading dut_work.gps_baseband_rtl1_tessent_clk_mux2
+# Loading dut_work.gps_baseband_rtl1_tessent_occ_shift_reg
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_decompressor
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_compactor
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_spatial_compactor_15_w_output_lockup
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_config1_spatial_compactor_4
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_controller
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_low_power_shift_controller
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_low_power_shift_decoder
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_plugin_xor_decoder
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_xor_decoder
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_onehot_decoder_4_to_15
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_onehot_decoder_6_to_60
+# Loading dut_work.gps_baseband_rtl1_tessent_edt_c1_bypass_logic
+# Loading dut_work.gps_baseband_rtl1_tessent_mux2
+# run -all
+# Found New Path ./patterns_directory
+# 
+# Loading ./patterns_directory/ICLNetwork.v.0.vec
+# 
+# 0ns: Pattern_set gps_baseband
+# Simulated 1 scan patterns
+# 
+# Simulation finished at time 301
+# Number of miscompares            =           0
+# Number of 0/1 compares           =           0
+# Number of Z compares             =           0
+# 
+# No error between simulated and expected patterns
+# 
+# ** Note: $finish    : ./patterns_directory/ICLNetwork.v(796)
+#    Time: 302 ns  Iteration: 1  Instance: :TB
+# End time: 16:08:06 on Oct 29,2025, Elapsed time: 0:00:00
+# Errors: 0, Warnings: 1

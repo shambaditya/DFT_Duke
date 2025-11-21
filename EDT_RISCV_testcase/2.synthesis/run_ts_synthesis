@@ -1,0 +1,26 @@
+#! /bin/sh -f
+#\
+exec tessent -shell -log logfiles/$0.log -replace -dofile "$0"
+
+# Set the context to insert DFT into RTL-level design
+set_context dft -rtl
+
+read_cell_library ../library/tessent/dft_sim.tcelllib
+# Set the location of the TSDB. Default is the current working directory.
+set_tsdb_output_directory ../tsdb_outdir
+read_design picorv32 -design_id rtl1
+
+set_current_design picorv32
+
+# Set the design level as physical_block
+set_design_level physical_block
+
+set_attribute_value [get_modules -of_type design] -name synthesize_before_analysis
+
+check_design_rules
+write_design -output_file picorv32.vg -replace
+
+exit
+
+
+

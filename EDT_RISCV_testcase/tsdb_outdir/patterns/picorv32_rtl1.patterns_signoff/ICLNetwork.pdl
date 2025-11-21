@@ -1,0 +1,10 @@
+iProcsForModule picorv32
+
+iTopProc picorv32 {} {
+
+   iForcePort [list "scan_en_w"] 0b0 -not_persistent
+   iApply
+
+   iReset
+
+}

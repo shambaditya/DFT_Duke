@@ -1,0 +1,24 @@
+//-------------------------------------------------
+//  File created by: Tessent Shell
+//          Version: 2024.4
+//       Created on: Thu Nov 20 21:19:34 EST 2025
+//-------------------------------------------------
+
+
+TsdbInfo(picorv32,gate) {
+  tessent_tool_version : 2024.4;
+  tessent_meta_version : 11;
+  version : 3;
+  creation_date : Fri Nov 21 02:19:34 GMT 2025;
+  creation_user : jh829;
+  creation_step : insert_test_logic;
+  level : physical_block;
+  icl_extraction_needed : On;
+  library_name : work;
+  instrument_module_name_prefix : picorv32;
+  gate_extension : vg;
+  interface_has_external_dependencies : 0;
+  OpenedTsdbDirectories {
+    /home/jh829/tessent_work/EDT_RISCV_testcase/tsdb_outdir;
+  }
+}

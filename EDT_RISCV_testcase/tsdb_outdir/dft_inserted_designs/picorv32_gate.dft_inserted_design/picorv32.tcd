@@ -1,0 +1,115 @@
+//-------------------------------------------------
+//  File created by: Tessent Shell
+//          Version: 2024.4
+//       Created on: Thu Nov 20 21:19:34 EST 2025
+//-------------------------------------------------
+
+
+Core(picorv32) {
+  DesignInfo {
+    design_id : gate;
+    design_level : physical_block;
+    ChildBlockModules {
+    }
+    RtlClockGaters {
+      RtlClockGater(picorv32_rtl1_tessent_clk_gate_and) {
+        functional_enable : fe;
+        functional_enable_polarity : 1;
+        test_enable : te;
+        test_enable_polarity : 1;
+      }
+    }
+    Clocks {
+      Clock(clk) {
+        domain_label : clk;
+        type : async_source;
+        base_period : 3.00ns;
+        period : 3.0;
+      }
+    }
+    DynamicDftSignals {
+      DynamicDftSignal(edt_clock) {
+        Instance {
+          type : pin;
+          created_from_other_signals : on;
+          node_name : tessent_persistent_cell_edt_clock/clkg;
+        }
+      }
+      DynamicDftSignal(edt_update) {
+        Instance {
+          type : port;
+          add_hold_scan_cell : off;
+          node_name : edt_update;
+        }
+      }
+      DynamicDftSignal(scan_en) {
+        Instance {
+          type : port;
+          add_hold_scan_cell : off;
+          node_name : scan_en_w;
+        }
+      }
+      DynamicDftSignal(shift_capture_clock) {
+        Instance {
+          type : pin;
+          created_from_other_signals : on;
+          node_name : tessent_persistent_cell_shift_capture_clock/clkg;
+        }
+      }
+      DynamicDftSignal(test_clock) {
+        Instance {
+          type : port;
+          add_hold_scan_cell : off;
+          node_name : test_clock_w;
+        }
+      }
+    }
+  }
+  Scan {
+    allow_internal_pins : 1;
+    is_hard_module : 1;
+    exclude_from_concatenated_netlist : 1;
+    internal_scan_only : 1;
+    Mode(mode1) {
+      type : unwrapped;
+      traceable : 1;
+      make_active_automatically : 1;
+      EdtInstances {
+        picorv32_rtl1_tessent_edt_c1_inst : picorv32_rtl1_tessent_edt_c1;
+      }
+      OccInstances {
+        picorv32_rtl1_tessent_occ_clk_inst : picorv32_rtl1_tessent_occ;
+      }
+      ScanEn(scan_en_w) {
+        pipeline_count : 0;
+        active_polarity : all_ones;
+      }
+      Clock(test_clock_w) {
+        off_state : 1'b0;
+      }
+      ChildBlockInstance(picorv32_rtl1_tessent_occ_clk_inst) {
+        child_mode_name : "";
+        enable_dft_signal : "";
+      }
+    }
+    OccModule(picorv32_rtl1_tessent_occ) {
+      supports_add_core_instances : 1;
+      OccShiftOnlyEn(shift_only_mode) {
+        active_polarity : 1'b1;
+      }
+      Clock(slow_clock) {
+        off_state : 1'b0;
+      }
+      ClockOut(tessent_persistent_cell_clock_out_mux/y) {
+        slow_clock_input : slow_clock;
+        fast_clock_input : fast_clock;
+      }
+      FastCaptureClockEn(tessent_persistent_cell_cgc_fast_clock/fe) {
+        clock_input : fast_clock;
+      }
+      ShiftRegisterClockEn(occ_control/tessent_persistent_cell_cgc_SHIFT_REG_CLK/fe) {
+        clock_input : slow_clock;
+      }
+    }
+  }
+}

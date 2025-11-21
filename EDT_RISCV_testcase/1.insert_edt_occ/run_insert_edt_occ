@@ -1,0 +1,113 @@
+#! /bin/sh -f
+#\
+exec tessent -shell -log logfiles/$0.log -replace -dofile "$0"
+
+##Setting context to dft and  we are inserting DFT into rtl-level design
+set_context dft -rtl -design_id rtl1
+
+##Setting where the tsdb_outdir is to be located, default is at the current working directory
+set_tsdb_output_directory ../tsdb_outdir
+
+##Reading the design
+read_verilog ../rtl/picorv32.v
+set_current_design picorv32
+
+##Setting the design level as physical_block
+set_design_level physical_block
+
+## If source node does not exist create new ports. The ports get created only if set_design_level is not chip
+add_dft_signals scan_en edt_update test_clock -source_node { scan_en_w  edt_update test_clock_w }
+add_dft_signals shift_capture_clock edt_clock -create_from_other_signals 
+
+add_clocks clk -period 3ns
+
+check_design_rules
+
+## test point
+## analyze_test_points
+
+## Create the DFT Spec for adding EDT
+set spec [create_dft_specification]
+
+read_config_data -in $spec -from_string {
+  OCC {
+    type : standard;
+    Connections {
+      StaticExternalControls {
+         fast_capture_mode : fast_capture_mode ;
+         capture_cycle_width : capture_cycle_width_1, capture_cycle_width_0 ;
+         test_mode : test_mode ;
+      }
+    }
+  }
+}
+
+##Below is a generic way to populate the OCC, use display_spec to fill in using GUI
+##To the OCC - scan_enable and shift_capture_clock gets connected automatically
+## Modify below to your specific design requirements
+
+set id_clk_list [list \
+   clk clk \
+]
+foreach {id clk} $id_clk_list {
+  set occ [add_config_element OCC/Controller($id) -in $spec]
+  set_config_value clock_intercept_node -in $occ $clk
+}
+
+report_config_data $spec
+## To EDT controller, the edt_clock and edt_update get auto connected
+## EDT includes built-in bypass
+## Scan chains need to be stitched using LE -TE flops, if not will get K22
+## Modify below to your specific design requirements
+read_config_data -in $spec -from_string {
+  EDT {
+    Controller (c1) {
+      longest_chain_range : 50, 65;
+      scan_chain_count : 60;
+      input_channel_count : 2;
+      output_channel_count : 2;
+      Connections {
+        StaticExternalControls {
+          edt_bypass : edt_bypass ;
+          edt_low_power_shift_enable : edt_low_power_shift_en;
+          edt_configuration : edt_configuration;
+          edt_single_bypass_chain : edt_single_bypass_chain;
+        }
+      }
+      HighCompressionConfiguration {
+        present : on;
+        input_channel_count : 1;
+        output_channel_count : 1;
+      }
+      ShiftPowerOptions {
+        present : on;
+        full_control : on;
+        min_switching_threshold_percentage : 15 ; // default = 15
+      }
+    }
+  }
+}
+
+report_config_data $spec
+
+## The hardware gets generated here
+process_dft_specification
+
+extract_icl
+
+## Creates a Synthesis script of ALL the RTL(orignial and newly created) to be used in DCShell in Step 2
+write_design_import_script -use_relative_path_to . use_in_synthesis.tcl -replace
+
+##Creating the testbench to be simuated
+create_pattern_specification
+process_pattern_specification
+
+##Simulating the testbench
+run_testbench_simulations
+
+## If simulation fails use the command below to see which pattern failed
+//check_testbench_simulations
+
+exit
+
+

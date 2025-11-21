@@ -1,0 +1,353 @@
+/opt/mentor/tessent-2024/tessent/bin/tessent -shell -log logfiles/stuck_bypass_tessent.log -replace -dofile stuck_bypass.do
+//  Tessent Shell  2024.4    Mon Dec 02 21:53:26 GMT 2024
+//                Unpublished work. Copyright 2024 Siemens
+//
+//      This material contains trade secrets or otherwise confidential 
+//  information owned by Siemens Industry Software Inc. or its affiliates 
+//   (collectively, "SISW"), or its licensors. Access to and use of this 
+//     information is strictly limited as set forth in the Customer's 
+//                   applicable agreements with SISW. 
+//
+//  Siemens software executing under x86-64 Linux on Thu Nov 20 22:16:25 EST 2025.
+//  64 bit version
+//  Host: vlsi-cmp-00.egr.duke.edu (515084 MB RAM, 4095 MB Swap)
+//
+//  command: set_context patterns -scan
+//  command: set_tsdb_output_directory ../tsdb_outdir
+//  command: read_cell_library ../library/tessent/dft_sim.tcelllib
+//  Reading DFT Library file ../library/tessent/dft_sim.tcelllib
+//  Finished reading file ../library/tessent/dft_sim.tcelllib
+//  command: ## Reads in the scan inserted netlist/design
+//  command: read_design picorv32 -design_id gate
+//  command: set_current_design picorv32
+//  Warning: 128 cases: Undriven net in netlist module
+//  Warning: 198 cases: Net in netlist not connected
+//  Note: Issue set_current_design with the -show_elaboration_warnings option to see more details about previous warnings
+//  ---------------------------------------------------------------------------
+//  Begin ICL elaboration and checking.
+//  -----------------------------------
+//  ICL elaboration completed, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  command: ## Specify a different name than what was used during scan insertion with add_scan_mode command
+//  command: set_current_mode edt_stuck 
+//  command: report_dft_signals 
+
+// Existing and to be created DFT signals
+// ======================================
+// -------------------  --------  ------------------------  ----  ------------------------------------------------
+// Name                 Status    Origin                    Type  Location
+// -------------------  --------  ------------------------  ----  ------------------------------------------------
+// edt_clock            Existing  Imported from DesignInfo  Pin   tessent_persistent_cell_edt_clock/clkg
+// edt_update           Existing  Imported from DesignInfo  Port  edt_update
+// scan_en              Existing  Imported from DesignInfo  Port  scan_en_w
+// shift_capture_clock  Existing  Imported from DesignInfo  Pin   tessent_persistent_cell_shift_capture_clock/clkg
+// test_clock           Existing  Imported from DesignInfo  Port  test_clock_w
+//
+//  command: ## Automation for pattern generation using the EDT IP mapping flow 
+//  command: ## Automates dofile based scan description and testproc files
+//  command: if {$env(SCAN_TOOL) == "Tessent_Scan"} {
+//               ## Extract the internal mode specified during scan insertion to run ATPG
+//               import_scan_mode mode1
+//           } else {
+//               ## Using tcd core mapping flow
+//               set edt_instance [get_instances -of_icl_instances [get_icl_instances -filter tessent_instrument_type==mentor::edt]]
+//               add_core_instances -instances $edt_instance 
+//               ## optional to add bypass just here use this line isntead of above:
+//               ## add_core_instances -instances $edt_instance -parameter_values {edt_bypass on}
+//           
+//               ## Add the OCC inserted
+//               set occ_instances [get_instances -of_icl_instances [get_icl_instances -filter tessent_instrument_type==mentor::occ]]
+//               add_core_instances -instances $occ_instances
+//               ## Include dofile created when 3rd party tools used for scan insertion
+//           
+//               ## Other pin constraints - fix for Async set/reset during scan insertion
+//               add_input_constraints ltest_en -C1
+//           
+//               ## Set attribute to ensure scan reset signal is forced off in the load_unload procedure created by the tool
+//               set_attribute_value scan_reset -name constraint_value_during_load_unload -value 0
+//           }
+//  sub-command: import_scan_mode mode1 
+//  Resetting design.
+//  Reading core description file ../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.tcd
+//  Reading core description file ../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.tcd
+//  command: ## this turns on bypass for the specified instance
+//  command: set_core_instance_parameters -instance picorv32_rtl1_tessent_edt_c1_inst -parameter_values {edt_bypass on}
+//  command: ## optionally can use this one for all edt instruments (bypass all edt stuff)
+//  command: ## set_core_instance_parameters -instrument_type edt -parameter_values {edt_bypass on}
+//  command: set_system_mode analysis
+//  Warning: Rule FN1 violation occurs 326 times
+//  Flattening process completed, cell instances=10231, gates=28687, PIs=114+1(pseudo port), POs=309, CPU time=0.17 sec.
+//  ---------------------------------------------------------------------------
+//  Begin circuit learning analyses.
+//  --------------------------------
+//  Learning completed, CPU time=0.09 sec.
+//  ---------------------------------------------------------------------------
+//  Begin scan chain identification process, memory elements = 2592.
+//  ---------------------------------------------------------------------------
+//  Begin simulation of test_setup procedure with 4 cycles.
+//  Simulation of test_setup procedure completed, CPU time=0.0 sec.
+//  Begin simulation of load_unload procedure.
+//  Simulation of load_unload procedure completed, CPU time=0.1 sec.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_1 successfully traced with scan_cells = 1170.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_2 successfully traced with scan_cells = 1158.
+//  5 external shadows that use shift clocking have been identified.
+//  2328 scan cells have been identified in 2 scan chains.
+//  Longest scan chain has 1170 scan cells.
+//  Warning: 1 edge-triggered clock ports set to stable high. (D7)
+//  ---------------------------------------------------------------------------
+//  Begin transparent latch checking for 63 latches.
+//  ---------------------------------------------------------------------------
+//  Number transparent latches = 63.
+//  ---------------------------------------------------------------------------
+//  Begin scan clock rules checking.
+//  ---------------------------------------------------------------------------
+//  2 scan clock/set/reset lines have been identified.
+//  All scan clocks successfully passed off-state check.
+//  191 sequential cells passed clock stability checking.
+//  ---------------------------------------------------------------------------
+//  258 non-scan memory elements are identified.
+//  ---------------------------------------------------------------------------
+//    1 non-scan memory element is   identified as TIE-0.  (D5)
+//    1 non-scan memory element is   identified as TIE-1.  (D5)
+//    2 non-scan memory elements are identified as TIE-X.  (D5)
+//    1 non-scan memory element is   identified as INIT-0. (D5)
+//  190 non-scan memory elements are identified as INIT-X. (D5)
+//   63 non-scan memory elements are identified as TLA.    (D5)
+//  ---------------------------------------------------------------------------
+//  128 gates may have an observable X-state. (E5)
+//  command: report_clocks 
+User-defined Clocks (2):
+=========================
+
+  Sync and Async Source Clocks
+  ============================
+   ----------------------------------------------------------------------------  ---------  ----------------  --------  ----------------  ----------------------------------------------------------------------------
+   Name                                                                          Off State     Constraints    Internal  Other Properties  Pin(s)                                                                      
+   ----------------------------------------------------------------------------  ---------  ----------------  --------  ----------------  ----------------------------------------------------------------------------
+   'test_clock_w'                                                                    0      Pulse in capture     No                                                                                                   
+   'picorv32_rtl1_tessent_occ_clk_inst_tessent_persistent_cell_clock_out_mux_y'      0                           Yes      Capture only    'picorv32_rtl1_tessent_occ_clk_inst/tessent_persistent_cell_clock_out_mux/y'
+
+//  command: report_input_constraints 
+//  Primary Input          C-Type  Hold  No-Z  Slow-Pad
+//  ---------------------  ------  ----  ----  --------
+//  scan_en_w                C0     No    No      N/A  
+//  edt_update               C0     No    No      N/A  
+//  test_mode                C1     No    No      N/A  
+//  fast_capture_mode        C0     No    No      N/A  
+//  capture_cycle_width_1    C1     No    No      N/A  
+//  capture_cycle_width_0    C0     No    No      N/A  
+//
+//  command: add_faults -all
+//  command: report_statistics -detail
+                                  Statistics Report                                  
+                                   Stuck-at Faults                                   
+-------------------------------------------------------------------------------------
+Fault Classes                                           #faults         #faults     
+                                                        (total)     (total relevant)
+--------------------------------------------------  -------------- ------------------
+  FU (full)                                              85668           76334      
+  ------------------------------------------------  -------------- ------------------
+  UC (uncontrolled)                                 53215 (62.12%)      same (69.71%)
+  DI (det_implication)                              17813 (20.79%)      same (23.34%)
+  UU (unused)                                        4344 ( 5.07%)      same ( 5.69%)
+  TI (tied)                                           453 ( 0.53%)      same ( 0.59%)
+  BL (blocked)                                         99 ( 0.12%)      same ( 0.13%)
+  AU (atpg_untestable)                               9744 (11.37%)       410 ( 0.54%)
+-------------------------------------------------------------------------------------
+Fault Sub-classes                                                                    
+  ------------------------------------------------                                   
+  DI (det_implication)                                                               
+    SCAN  (scan_path)                               10591 (12.36%)      same (13.87%)
+    SEN   (scan_enable)                              2401 ( 2.80%)      same ( 3.15%)
+    CLK   (clock)                                    4821 ( 5.63%)      same ( 6.32%)
+  AU (atpg_untestable)                                                               
+    UDN   (undriven)                                  384 ( 0.45%)      same ( 0.50%)
+    PC    (pin_constraints)                            11 ( 0.01%)      same ( 0.01%)
+      (Individual pin constraints below threshold)     11 ( 0.01%)                   
+    TC    (tied_cells)                                 15 ( 0.02%)      same ( 0.02%)
+      (Individual tied cells below threshold)          15 ( 0.02%)                   
+    OCC   (on_chip_clock_control)                     171 ( 0.20%)        deleted     
+    IJTAG (ijtag)                                    9163 (10.70%)        deleted     
+-------------------------------------------------------------------------------------
+Coverage                                                                             
+  ------------------------------------------------                                   
+  test_coverage                                            22.05%             24.93% 
+  fault_coverage                                           20.79%             23.34% 
+  atpg_effectiveness                                       37.88%             37.88% 
+-------------------------------------------------------------------------------------
+#test_patterns                                                                     0 
+#simulated_patterns                                                                0 
+CPU_time (secs)                                                                  4.9 
+-------------------------------------------------------------------------------------
+
+//  command: create_patterns 
+// | ------------------------------------------------------------------------------------------------------------------ |
+// |                                             Analyzing the design                                                   |
+// |                                                                                                                    |
+// |      Current clock restriction setting:     Domain_clock (edge interaction)                                        |
+// |                                             (optimal)                                                              |
+// |                                                                                                                    |
+// |            Current abort limit setting:     30                                                                     |
+// |                                Calling:     set_abort_limit 300 100                                                |
+// | ------------------------------------------------------------------------------------------------------------------ |
+// |                                                                                                                    |
+// |               Current sequential depth:     0 (optimal)                                                            |
+// |                                                                                                                    |
+// | ------------------------------------------------------------------------------------------------------------------ |
+//  ------------------------------------------------------------------------
+//  Simulation performed for #gates = 28687  #faults = 53215
+//  system mode = analysis    pattern source = internal patterns
+//  ------------------------------------------------------------------------
+//  #patterns  test      #faults  #faults    # eff.    # test         process      RE/AU/AAB
+//  simulated  coverage  in list  detected   patterns  patterns       CPU time
+//   ---        ------      ---       ---      ---       ---          1.88 sec     60/9758/0
+//   64         73.25%    11937     41204       64        64          2.07 sec
+//   ---        ------      ---       ---      ---       ---          3.31 sec     386/9769/0
+//   128        81.03%     5519      6081       64       128          3.35 sec
+//   ---        ------      ---       ---      ---       ---          4.01 sec     798/9866/0
+//   192        84.41%     2617      2384       63       191          4.03 sec
+//   ---        ------      ---       ---      ---       ---          8.81 sec     1342/9967/0
+//   256        86.50%      746      1205       62       253          8.82 sec
+//   ---        ------      ---       ---      ---       ---          9.07 sec     1469/9985/1
+//   320        87.11%      217       376       59       312          9.08 sec
+//   ---        ------      ---       ---      ---       ---          9.10 sec     1469/9985/1
+//   384        87.37%       10       207       57       369          9.11 sec
+//   ---        ------      ---       ---      ---       ---          9.11 sec     1469/9985/1
+//   391        87.38%        1         9        7       376          9.12 sec
+//  2 faults were identified as detected by implication.
+//  -----------------------------------------------------------------------
+//  Performing redundant fault identification for 484 faults
+//  -----------------------------------------------------------------------
+//  deterministic ATPG invoked with abort limit = 300
+//  # red.    # non-red.   # abort     # remn.   progress   test        process
+//  faults      faults      faults      faults              coverage    CPU time
+//       4         479          1            0   100.00%    87.39%       0.09 sec
+
+                          Statistics Report                         
+                           Stuck-at Faults                          
+--------------------------------------------------------------------
+Fault Classes                          #faults         #faults     
+                                       (total)     (total relevant)
+---------------------------------  -------------- ------------------
+  FU (full)                             85668           76130      
+  -------------------------------  -------------- ------------------
+  UO (unobserved)                      1 ( 0.00%)      same ( 0.00%)
+  DS (det_simulation)              51466 (60.08%)      same (67.60%)
+  DI (det_implication)             17815 (20.80%)      same (23.40%)
+  PU (posdet_untestable)              38 ( 0.04%)      same ( 0.05%)
+  UU (unused)                       4344 ( 5.07%)      same ( 5.71%)
+  TI (tied)                          453 ( 0.53%)      same ( 0.60%)
+  BL (blocked)                        99 ( 0.12%)      same ( 0.13%)
+  RE (redundant)                    1473 ( 1.72%)      same ( 1.93%)
+  AU (atpg_untestable)              9979 (11.65%)       441 ( 0.58%)
+--------------------------------------------------------------------
+Fault Sub-classes                                                   
+  -------------------------------                                   
+  AU (atpg_untestable)                                              
+    UDN   (undriven)                 384 ( 0.45%)      same ( 0.50%)
+    PC*   (pin_constraints)            9 ( 0.01%)      same ( 0.01%)
+    TC*   (tied_cells)                13 ( 0.02%)      same ( 0.02%)
+    OCC   (on_chip_clock_control)    240 ( 0.28%)        deleted     
+    IJTAG (ijtag)                   9298 (10.85%)        deleted     
+    Unclassified                      35 ( 0.04%)      same ( 0.05%)
+  UC+UO                                                             
+    AAB   (atpg_abort)                 1 ( 0.00%)      same ( 0.00%)
+  *Use "report_statistics -detailed_analysis" for details.          
+--------------------------------------------------------------------
+Coverage                                                            
+  -------------------------------                                   
+  test_coverage                           87.39%             99.34% 
+  fault_coverage                          80.89%             91.03% 
+  atpg_effectiveness                     100.00%            100.00% 
+--------------------------------------------------------------------
+#test_patterns                                                  376 
+#simulated_patterns                                             391 
+CPU_time (secs)                                                14.3 
+--------------------------------------------------------------------
+
+//  command: report_statistics -detail
+                                  Statistics Report                                  
+                                   Stuck-at Faults                                   
+-------------------------------------------------------------------------------------
+Fault Classes                                           #faults         #faults     
+                                                        (total)     (total relevant)
+--------------------------------------------------  -------------- ------------------
+  FU (full)                                              85668           76130      
+  ------------------------------------------------  -------------- ------------------
+  UO (unobserved)                                       1 ( 0.00%)      same ( 0.00%)
+  DS (det_simulation)                               51466 (60.08%)      same (67.60%)
+  DI (det_implication)                              17815 (20.80%)      same (23.40%)
+  PU (posdet_untestable)                               38 ( 0.04%)      same ( 0.05%)
+  UU (unused)                                        4344 ( 5.07%)      same ( 5.71%)
+  TI (tied)                                           453 ( 0.53%)      same ( 0.60%)
+  BL (blocked)                                         99 ( 0.12%)      same ( 0.13%)
+  RE (redundant)                                     1473 ( 1.72%)      same ( 1.93%)
+  AU (atpg_untestable)                               9979 (11.65%)       441 ( 0.58%)
+-------------------------------------------------------------------------------------
+Fault Sub-classes                                                                    
+  ------------------------------------------------                                   
+  DI (det_implication)                                                               
+    SCAN  (scan_path)                               10591 (12.36%)      same (13.91%)
+    SEN   (scan_enable)                              2401 ( 2.80%)      same ( 3.15%)
+    CLK   (clock)                                    4821 ( 5.63%)      same ( 6.33%)
+    DIN   (data_input)                                  2 ( 0.00%)      same ( 0.00%)
+  AU (atpg_untestable)                                                               
+    UDN   (undriven)                                  384 ( 0.45%)      same ( 0.50%)
+    PC    (pin_constraints)                             9 ( 0.01%)      same ( 0.01%)
+      (Individual pin constraints below threshold)      9 ( 0.01%)                   
+    TC    (tied_cells)                                 13 ( 0.02%)      same ( 0.02%)
+      (Individual tied cells below threshold)          13 ( 0.02%)                   
+    OCC   (on_chip_clock_control)                     240 ( 0.28%)        deleted     
+    IJTAG (ijtag)                                    9298 (10.85%)        deleted     
+    Unclassified                                       35 ( 0.04%)      same ( 0.05%)
+  UC+UO                                                                              
+    AAB   (atpg_abort)                                  1 ( 0.00%)      same ( 0.00%)
+-------------------------------------------------------------------------------------
+Coverage                                                                             
+  ------------------------------------------------                                   
+  test_coverage                                            87.39%             99.34% 
+  fault_coverage                                           80.89%             91.03% 
+  atpg_effectiveness                                      100.00%            100.00% 
+-------------------------------------------------------------------------------------
+#test_patterns                                                                   376 
+#simulated_patterns                                                              391 
+CPU_time (secs)                                                                 14.3 
+-------------------------------------------------------------------------------------
+
+//  command: ## Added this for bypass test case
+//  command: report_scan_volume 
+//
+//  -----------------------------------------------------           
+//  Scan volume report.                                                                             
+//  -------------------                                                                             
+//     scan chains  : 2                                                                             
+//     shift cycles : 1170                                                                          
+//  -----------------------------------------------------           
+//  pattern       # test  # scan                   volume           
+//  type        patterns   loads  (cell loads or unloads)           
+//  ----------  --------  ------  -----------------------           
+//  chain_test         1       1                     2340           
+//  basic            376     376                   879840           
+//  ----------  --------  ------  -----------------------           
+//  total            377     377                   882180   (882.2K)
+//
+//  command: ## Stores TCD, flat_model, fault list and patDB format files in the TSDB directory
+//  command: write_tsdb_data -replace
+//  Writing ../tsdb_outdir/logic_test_cores/picorv32_gate.logic_test_core/picorv32.atpg_mode_edt_stuck/picorv32_edt_stuck.tcd.gz
+//  Writing ../tsdb_outdir/logic_test_cores/picorv32_gate.logic_test_core/picorv32.atpg_mode_edt_stuck/picorv32_edt_stuck.flat.gz
+//  Writing ../tsdb_outdir/logic_test_cores/picorv32_gate.logic_test_core/picorv32.atpg_mode_edt_stuck/picorv32_edt_stuck_stuck.patdb
+//  Writing ../tsdb_outdir/logic_test_cores/picorv32_gate.logic_test_core/picorv32.atpg_mode_edt_stuck/picorv32_edt_stuck_stuck.faults.gz
+//  command: ##Writing out patterns for simulation
+//  command: write_patterns patterns/picorv32_bypass_stuck_parallel.v -verilog -parallel -replace -parameter_list {SIM_KEEP_PATH 1}
+//  Warning: Scan chains contain shadow elements which can cause simulation
+//   mismatches in parallel load test benches.
+//   To correct for this, a second shift vector is being added when loading
+//   the scan chains, this is similar to using a post shift in the
+//   load_unload procedure.
+//  Warning: SIM_KEEP_PATH is being deprecated.  Use +NEWPATH instead of SIM_KEEP_PATH to locate testbench files required to run simulation.
+//  command: set_pattern_filtering -sample_per_type 2
+//  Internal pattern filtering is on: 1 pattern type(s), 2 selected pattern(s), 376 original pattern(s).
+//  command: write_patterns patterns/picorv32_bypass_stuck_serial.v -verilog -serial -replace -parameter_list {SIM_KEEP_PATH 1}
+//  Warning: SIM_KEEP_PATH is being deprecated.  Use +NEWPATH instead of SIM_KEEP_PATH to locate testbench files required to run simulation.
+//  Note: pattern filtering is on, #-saved-pattern(s) = 2, #-total-pattern(s) = 376
+//  command: exit 

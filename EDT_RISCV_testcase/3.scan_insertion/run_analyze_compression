@@ -1,0 +1,22 @@
+#! /bin/sh -f
+#\
+exec tessent -shell -log logfiles/analyze_compression.log -replace -dofile "$0"
+set_context patterns -scan
+set_tsdb_output_directory ../tsdb_outdir
+
+read_cell_library ../library/tessent/dft_sim.tcelllib
+read_design picorv32 -design_id gate -verbose
+set_current_design picorv32
+set_current_mode edt_int_stuck -type internal
+
+report_dft_signals
+import_scan_mode mode1
+set_system_mode analysis
+
+analyze_compression -channel 1 -chains 50
+analyze_compression -channel 1 -chains 100
+analyze_compression -channel 1 -chains 200
+analyze_compression -channel 2 -chains 100
+analyze_compression -channel 4 -chains 100
+analyze_compression -channel 4 -chains 50
+analyze_compression -channel 2 -chains 50

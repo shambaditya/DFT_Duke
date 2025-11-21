@@ -1,0 +1,45 @@
+#! /bin/sh -f
+#\
+exec tessent -shell -log logfiles/$0.log -replace -dofile "$0"
+
+set_context dft -scan 
+
+# If the tsdb_outdir is not to be created in the current working directory use the following
+set_tsdb_output_directory ../tsdb_outdir
+
+# Reading the tessent cell library
+read_cell_library ../library/tessent/dft_sim.tcelllib
+
+# Reading the synthesized netlist from DC Shell
+read_verilog ../2.synthesis/picorv32.vg
+
+# Use read_design to read in information(DFT signals etc) performed in previous pass.
+read_design picorv32 -design_identifier rtl1 -no_hdl -verbose
+
+set_current_design picorv32
+
+# To fix S1 violations
+set_test_logic -reset on
+
+# The EDT instances aren't scanned by using the attribute filter is_non_scannable
+set_system_mode analysis
+report_clocks
+
+
+# Find edt_instance
+set edt_instance [get_instances -of_icl_instances [get_icl_instances -filter tessent_instrument_type==mentor::edt]]
+
+# EDT is already built with Bypass
+add_scan_mode mode1 -edt_instance $edt_instance
+
+# Before scan gets inserted can analyze the different scan modes and scan chains
+analyze_scan_chains
+report_scan_chains
+
+# Insert scan chains and writes the scan inserted design into the TSDB directory
+insert_test_logic
+
+report_scan_chains
+
+exit
+

@@ -1,0 +1,503 @@
+/opt/mentor/tessent-2024/tessent/bin/tessent -shell -log logfiles/./run_stuck_tessent_scan.log -replace -dofile stuck.do
+//  Tessent Shell  2024.4    Mon Dec 02 21:53:26 GMT 2024
+//                Unpublished work. Copyright 2024 Siemens
+//
+//      This material contains trade secrets or otherwise confidential 
+//  information owned by Siemens Industry Software Inc. or its affiliates 
+//   (collectively, "SISW"), or its licensors. Access to and use of this 
+//     information is strictly limited as set forth in the Customer's 
+//                   applicable agreements with SISW. 
+//
+//  Siemens software executing under x86-64 Linux on Thu Nov 20 23:24:51 EST 2025.
+//  64 bit version
+//  Host: vlsi-cmp-00.egr.duke.edu (515084 MB RAM, 4095 MB Swap)
+//
+//  command: set_context patterns -scan
+//  command: set_tsdb_output_directory ../tsdb_outdir
+//  command: read_cell_library ../library/tessent/dft_sim.tcelllib
+//  Reading DFT Library file ../library/tessent/dft_sim.tcelllib
+//  Finished reading file ../library/tessent/dft_sim.tcelllib
+//  command: ## Reads in the scan inserted netlist/design
+//  command: read_design picorv32 -design_id gate
+//  command: set_current_design picorv32
+//  Warning: 128 cases: Undriven net in netlist module
+//  Warning: 198 cases: Net in netlist not connected
+//  Note: Issue set_current_design with the -show_elaboration_warnings option to see more details about previous warnings
+//  ---------------------------------------------------------------------------
+//  Begin ICL elaboration and checking.
+//  -----------------------------------
+//  ICL elaboration completed, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  command: ## Specify a different name than what was used during scan insertion with add_scan_mode command
+//  command: set_current_mode edt_stuck 
+//  command: report_dft_signals 
+
+// Existing and to be created DFT signals
+// ======================================
+// -------------------  --------  ------------------------  ----  ------------------------------------------------
+// Name                 Status    Origin                    Type  Location
+// -------------------  --------  ------------------------  ----  ------------------------------------------------
+// edt_clock            Existing  Imported from DesignInfo  Pin   tessent_persistent_cell_edt_clock/clkg
+// edt_update           Existing  Imported from DesignInfo  Port  edt_update
+// scan_en              Existing  Imported from DesignInfo  Port  scan_en_w
+// shift_capture_clock  Existing  Imported from DesignInfo  Pin   tessent_persistent_cell_shift_capture_clock/clkg
+// test_clock           Existing  Imported from DesignInfo  Port  test_clock_w
+//
+//  command: report_scan_modes 
+//      Mode Name  Mode Type  EDT Instruments  OCC Instruments
+//      ---------  ---------  ---------------  ---------------
+//      mode1      unwrapped         1                1       
+//  command: ## Automation for pattern generation using the EDT IP mapping flow 
+//  command: ## Automates dofile based scan description and testproc files
+//  command: if {$env(SCAN_TOOL) == "Tessent_Scan"} {
+//               ## Extract the internal mode specified during scan insertion to run ATPG
+//               import_scan_mode mode1
+//           } else {
+//               ## Using tcd core mapping flow
+//               set edt_instance [get_instances -of_icl_instances [get_icl_instances -filter tessent_instrument_type==mentor::edt]]
+//               add_core_instances -instances $edt_instance
+//           
+//               ## Add the OCC inserted
+//               set occ_instances [get_instances -of_icl_instances [get_icl_instances -filter tessent_instrument_type==mentor::occ]]
+//               add_core_instances -instances $occ_instances
+//               ## Include dofile created when 3rd party tools used for scan insertion
+//           
+//               ## Other pin constraints - fix for Async set/reset during scan insertion
+//               add_input_constraints ltest_en -C1
+//           
+//               ## Set attribute to ensure scan reset signal is forced off in the load_unload procedure created by the tool
+//               set_attribute_value scan_reset -name constraint_value_during_load_unload -value 0
+//           }
+//  sub-command: import_scan_mode mode1 
+//  Resetting design.
+//  Reading core description file ../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.tcd
+//  command: set_system_mode analysis
+//  Warning: Rule FN1 violation occurs 326 times
+//  Flattening process completed, cell instances=10231, gates=28687, PIs=114+1(pseudo port), POs=309, CPU time=0.16 sec.
+//  ---------------------------------------------------------------------------
+//  Begin circuit learning analyses.
+//  --------------------------------
+//  Learning completed, CPU time=0.08 sec.
+//  ---------------------------------------------------------------------------
+//  Begin scan chain identification process, memory elements = 2592.
+//  ---------------------------------------------------------------------------
+//  Begin simulation of test_setup procedure with 4 cycles.
+//  Simulation of test_setup procedure completed, CPU time=0.0 sec.
+//  Begin simulation of load_unload procedure.
+//  Simulation of load_unload procedure completed, CPU time=0.2 sec.
+//  ---------------------------------------------------------------------------
+//  Begin EDT Finder analyses.
+//  ---------------------------------------------------------------------------
+//  Finding EDT logic.
+//  Finding internal scan chains.
+//  EDT Finder completed, EDT blocks=1, scan chains=60, CPU time=0.03 sec.
+//  ---------------------------------------------------------------------------
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_1 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_2 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_3 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_4 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_5 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_6 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_7 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_8 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_9 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_10 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_11 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_12 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_13 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_14 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_15 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_16 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_17 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_18 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_19 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_20 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_21 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_22 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_23 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_24 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_25 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_26 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_27 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_28 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_29 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_30 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_31 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_32 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_33 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_34 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_35 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_36 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_37 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_38 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_39 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_40 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_41 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_42 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_43 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_44 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_45 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_46 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_47 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_48 successfully traced with scan_cells = 39.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_49 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_50 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_51 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_52 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_53 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_54 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_55 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_56 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_57 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_58 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_59 successfully traced with scan_cells = 38.
+//  Chain = picorv32_rtl1_tessent_edt_c1_inst__chain_60 successfully traced with scan_cells = 38.
+//  1 external shadows that use shift clocking have been identified.
+//  2328 scan cells have been identified in 60 scan chains.
+//  Longest scan chain has 39 scan cells.
+//  Warning: 1 edge-triggered clock ports set to stable high. (D7)
+//  ---------------------------------------------------------------------------
+//  Begin EDT setup and rules checking.
+//  ---------------------------------------------------------------------------
+//  Running EDT Pattern Generation Phase.
+//  EDT setup and rules checking completed, CPU time=0.07 sec.
+//  Warning: EDT initialization cycles increase each pattern size by 46%.
+//  ---------------------------------------------------------------------------
+//  Begin transparent latch checking for 63 latches.
+//  ---------------------------------------------------------------------------
+//  Number transparent latches = 63.
+//  ---------------------------------------------------------------------------
+//  Begin scan clock rules checking.
+//  ---------------------------------------------------------------------------
+//  2 scan clock/set/reset lines have been identified.
+//  All scan clocks successfully passed off-state check.
+//  135 sequential cells passed clock stability checking.
+//  ---------------------------------------------------------------------------
+//  262 non-scan memory elements are identified.
+//  ---------------------------------------------------------------------------
+//    1 non-scan memory element is   identified as TIE-0.  (D5)
+//   61 non-scan memory elements are identified as TIE-1.  (D5)
+//    2 non-scan memory elements are identified as TIE-X.  (D5)
+//    1 non-scan memory element is   identified as INIT-0. (D5)
+//  134 non-scan memory elements are identified as INIT-X. (D5)
+//   63 non-scan memory elements are identified as TLA.    (D5)
+//  ---------------------------------------------------------------------------
+//  128 gates may have an observable X-state. (E5)
+//  command: report_clocks 
+User-defined Clocks (2):
+=========================
+
+  Sync and Async Source Clocks
+  ============================
+   ----------------------------------------------------------------------------  ---------  ----------------  --------  ----------------  ----------------------------------------------------------------------------
+   Name                                                                          Off State     Constraints    Internal  Other Properties  Pin(s)                                                                      
+   ----------------------------------------------------------------------------  ---------  ----------------  --------  ----------------  ----------------------------------------------------------------------------
+   'test_clock_w'                                                                    0      Pulse in capture     No                                                                                                   
+   'picorv32_rtl1_tessent_occ_clk_inst_tessent_persistent_cell_clock_out_mux_y'      0                           Yes      Capture only    'picorv32_rtl1_tessent_occ_clk_inst/tessent_persistent_cell_clock_out_mux/y'
+
+//  command: report_input_constraints 
+//  Primary Input          C-Type  Hold  No-Z  Slow-Pad
+//  ---------------------  ------  ----  ----  --------
+//  scan_en_w                C0     No    No      N/A  
+//  edt_update               C0     No    No      N/A  
+//  test_mode                C1     No    No      N/A  
+//  fast_capture_mode        C0     No    No      N/A  
+//  capture_cycle_width_1    C1     No    No      N/A  
+//  capture_cycle_width_0    C0     No    No      N/A  
+//
+//  command: add_faults -all
+//  command: report_statistics -detail
+                                  Statistics Report                                  
+                                   Stuck-at Faults                                   
+-------------------------------------------------------------------------------------
+Fault Classes                                           #faults         #faults     
+                                                        (total)     (total relevant)
+--------------------------------------------------  -------------- ------------------
+  FU (full)                                              85668           76047      
+  ------------------------------------------------  -------------- ------------------
+  UC (uncontrolled)                                 53144 (62.03%)      same (69.88%)
+  DI (det_implication)                              17596 (20.54%)      same (23.14%)
+  UU (unused)                                        4344 ( 5.07%)      same ( 5.71%)
+  TI (tied)                                           453 ( 0.53%)      same ( 0.60%)
+  BL (blocked)                                         99 ( 0.12%)      same ( 0.13%)
+  AU (atpg_untestable)                              10032 (11.71%)       411 ( 0.54%)
+-------------------------------------------------------------------------------------
+Fault Sub-classes                                                                    
+  ------------------------------------------------                                   
+  DI (det_implication)                                                               
+    SCAN  (scan_path)                               10439 (12.19%)      same (13.73%)
+    SEN   (scan_enable)                              2336 ( 2.73%)      same ( 3.07%)
+    CLK   (clock)                                    4821 ( 5.63%)      same ( 6.34%)
+  AU (atpg_untestable)                                                               
+    UDN   (undriven)                                  384 ( 0.45%)      same ( 0.50%)
+    EDT   (edt_blocks)                               9450 (11.03%)        deleted     
+    PC    (pin_constraints)                            11 ( 0.01%)      same ( 0.01%)
+      (Individual pin constraints below threshold)     11 ( 0.01%)                   
+    TC    (tied_cells)                                 16 ( 0.02%)      same ( 0.02%)
+      (Individual tied cells below threshold)          15 ( 0.02%)                   
+      (Combined tied cells)                             1 ( 0.00%)                   
+    OCC   (on_chip_clock_control)                     171 ( 0.20%)        deleted     
+-------------------------------------------------------------------------------------
+Coverage                                                                             
+  ------------------------------------------------                                   
+  test_coverage                                            21.78%             24.73% 
+  fault_coverage                                           20.54%             23.14% 
+  atpg_effectiveness                                       37.97%             37.97% 
+-------------------------------------------------------------------------------------
+#test_patterns                                                                     0 
+#simulated_patterns                                                                0 
+CPU_time (secs)                                                                  5.0 
+-------------------------------------------------------------------------------------
+
+//  command: create_patterns 
+// | ------------------------------------------------------------------------------------------------------------------ |
+// |                                             Analyzing the design                                                   |
+// |                                                                                                                    |
+// |      Current clock restriction setting:     Domain_clock (edge interaction)                                        |
+// |                                             (optimal)                                                              |
+// |                                                                                                                    |
+// |            Current abort limit setting:     30                                                                     |
+// |                                Calling:     set_abort_limit 300 100                                                |
+// | ------------------------------------------------------------------------------------------------------------------ |
+// |                                                                                                                    |
+// |               Current sequential depth:     0 (optimal)                                                            |
+// |                                                                                                                    |
+// | ------------------------------------------------------------------------------------------------------------------ |
+//  ------------------------------------------------------------------------
+//  Simulation performed for #gates = 28687  #faults = 53144
+//  system mode = analysis    pattern source = internal patterns
+//  ------------------------------------------------------------------------
+//  #patterns  test      #faults  #faults    # eff.    # test         process      RE/AU/AAB/EAB
+//  simulated  coverage  in list  detected   patterns  patterns       CPU time
+//   ---        ------      ---       ---      ---       ---          2.25 sec     48/10041/0/0
+//   64         67.12%    16625     36462       64        64          2.48 sec
+//   ---        ------      ---       ---      ---       ---          4.81 sec     262/10047/0/0
+//   128        76.79%     8816      7588       64       128          4.87 sec
+//   ---        ------      ---       ---      ---       ---          6.00 sec     606/10089/0/0
+//   192        80.36%     5708      2717       64       192          6.03 sec
+//   ---        ------      ---       ---      ---       ---          7.07 sec     1003/10149/0/0
+//   256        83.32%     3187      2058       63       255          7.10 sec
+//   ---        ------      ---       ---      ---       ---          7.86 sec     1169/10156/0/0
+//   320        84.77%     1984      1018       63       318          7.88 sec
+//   ---        ------      ---       ---      ---       ---         11.44 sec     1359/10164/0/0
+//   384        85.95%      988       788       62       380         11.46 sec
+//   ---        ------      ---       ---      ---       ---         13.26 sec     1469/10177/1/0
+//   398        86.17%      777        79       14       394         13.27 sec
+//   ---        ------      ---       ---      ---       ---         13.67 sec     1469/10177/1/0
+//   462        86.67%      376       401       60       454         13.69 sec
+//   ---        ------      ---       ---      ---       ---         13.96 sec     1469/10177/1/0
+//   526        86.85%      227       149       60       514         13.98 sec
+//   ---        ------      ---       ---      ---       ---         13.98 sec     1469/10177/1/0
+//   542        86.89%      202        25       16       530         13.99 sec
+//  5710 faults were identified as detected by implication.
+//   ---        ------      ---       ---      ---       ---         14.21 sec     1469/4467/1/0
+//   590        94.32%       19       183       46       576         14.22 sec
+//   ---        ------      ---       ---      ---       ---         14.22 sec     1469/4467/1/0
+//   595        94.33%        7        12        5       581         14.23 sec
+//   ---        ------      ---       ---      ---       ---         14.23 sec     1469/4467/1/0
+//   596        94.33%        6         1        1       582         14.24 sec
+//   ---        ------      ---       ---      ---       ---         14.24 sec     1469/4467/1/0
+//   597        94.34%        1         5        1       583         14.24 sec
+//  8 faults were identified as detected by implication.
+//  -----------------------------------------------------------------------
+//  Performing redundant fault identification for 486 faults
+//  -----------------------------------------------------------------------
+//  deterministic ATPG invoked with abort limit = 300
+//  # red.    # non-red.   # abort     # remn.   progress   test        process
+//  faults      faults      faults      faults              coverage    CPU time
+//       4         481          1            0   100.00%    94.35%       0.10 sec
+
+                          Statistics Report                         
+                           Stuck-at Faults                          
+--------------------------------------------------------------------
+Fault Classes                          #faults         #faults     
+                                       (total)     (total relevant)
+---------------------------------  -------------- ------------------
+  FU (full)                             85668           81651      
+  -------------------------------  -------------- ------------------
+  UO (unobserved)                      1 ( 0.00%)      same ( 0.00%)
+  DS (det_simulation)              51486 (60.10%)      same (63.06%)
+  DI (det_implication)             23314 (27.21%)      same (28.55%)
+  PU (posdet_untestable)              43 ( 0.05%)      same ( 0.05%)
+  UU (unused)                       4344 ( 5.07%)      same ( 5.32%)
+  TI (tied)                          453 ( 0.53%)      same ( 0.55%)
+  BL (blocked)                        99 ( 0.12%)      same ( 0.12%)
+  RE (redundant)                    1473 ( 1.72%)      same ( 1.80%)
+  AU (atpg_untestable)              4455 ( 5.20%)       438 ( 0.54%)
+--------------------------------------------------------------------
+Fault Sub-classes                                                   
+  -------------------------------                                   
+  AU (atpg_untestable)                                              
+    UDN   (undriven)                 384 ( 0.45%)      same ( 0.47%)
+    EDT   (edt_blocks)              3779 ( 4.41%)        deleted     
+    PC*   (pin_constraints)            7 ( 0.01%)      same ( 0.01%)
+    TC*   (tied_cells)                13 ( 0.02%)      same ( 0.02%)
+    OCC   (on_chip_clock_control)    238 ( 0.28%)        deleted     
+    Unclassified                      34 ( 0.04%)      same ( 0.04%)
+  UC+UO                                                             
+    AAB   (atpg_abort)                 1 ( 0.00%)      same ( 0.00%)
+  *Use "report_statistics -detailed_analysis" for details.          
+--------------------------------------------------------------------
+Coverage                                                            
+  -------------------------------                                   
+  test_coverage                           94.35%             99.39% 
+  fault_coverage                          87.34%             91.64% 
+  atpg_effectiveness                     100.00%            100.00% 
+--------------------------------------------------------------------
+#test_patterns                                                  583 
+#simulated_patterns                                             597 
+CPU_time (secs)                                                19.5 
+--------------------------------------------------------------------
+
+//  command: report_statistics -detail
+                                  Statistics Report                                  
+                                   Stuck-at Faults                                   
+-------------------------------------------------------------------------------------
+Fault Classes                                           #faults         #faults     
+                                                        (total)     (total relevant)
+--------------------------------------------------  -------------- ------------------
+  FU (full)                                              85668           81651      
+  ------------------------------------------------  -------------- ------------------
+  UO (unobserved)                                       1 ( 0.00%)      same ( 0.00%)
+  DS (det_simulation)                               51486 (60.10%)      same (63.06%)
+  DI (det_implication)                              23314 (27.21%)      same (28.55%)
+  PU (posdet_untestable)                               43 ( 0.05%)      same ( 0.05%)
+  UU (unused)                                        4344 ( 5.07%)      same ( 5.32%)
+  TI (tied)                                           453 ( 0.53%)      same ( 0.55%)
+  BL (blocked)                                         99 ( 0.12%)      same ( 0.12%)
+  RE (redundant)                                     1473 ( 1.72%)      same ( 1.80%)
+  AU (atpg_untestable)                               4455 ( 5.20%)       438 ( 0.54%)
+-------------------------------------------------------------------------------------
+Fault Sub-classes                                                                    
+  ------------------------------------------------                                   
+  DI (det_implication)                                                               
+    EDT   (edt_logic)                                5708 ( 6.66%)      same ( 6.99%)
+    SCAN  (scan_path)                               10439 (12.19%)      same (12.78%)
+    SEN   (scan_enable)                              2336 ( 2.73%)      same ( 2.86%)
+    CLK   (clock)                                    4827 ( 5.63%)      same ( 5.91%)
+    DIN   (data_input)                                  4 ( 0.00%)      same ( 0.00%)
+  AU (atpg_untestable)                                                               
+    UDN   (undriven)                                  384 ( 0.45%)      same ( 0.47%)
+    EDT   (edt_blocks)                               3779 ( 4.41%)        deleted     
+    PC    (pin_constraints)                             7 ( 0.01%)      same ( 0.01%)
+      (Individual pin constraints below threshold)      7 ( 0.01%)                   
+    TC    (tied_cells)                                 13 ( 0.02%)      same ( 0.02%)
+      (Individual tied cells below threshold)          13 ( 0.02%)                   
+    OCC   (on_chip_clock_control)                     238 ( 0.28%)        deleted     
+    Unclassified                                       34 ( 0.04%)      same ( 0.04%)
+  UC+UO                                                                              
+    AAB   (atpg_abort)                                  1 ( 0.00%)      same ( 0.00%)
+-------------------------------------------------------------------------------------
+Coverage                                                                             
+  ------------------------------------------------                                   
+  test_coverage                                            94.35%             99.39% 
+  fault_coverage                                           87.34%             91.64% 
+  atpg_effectiveness                                      100.00%            100.00% 
+-------------------------------------------------------------------------------------
+#test_patterns                                                                   583 
+#simulated_patterns                                                              597 
+CPU_time (secs)                                                                 19.5 
+-------------------------------------------------------------------------------------
+
+//  command: ## For power
+//  command: report_power_metrics 
+Power Metrics                     Min.   Average   Max.
+-------------------------------  ------  -------  ------
+WSA                               7.44%   14.87%  24.04%
+State Element Transitions         4.87%   13.03%  20.83%
+-------------------------------  ------  -------  ------
+Peak Cycle
+-------------------------------
+WSA                               7.44%   14.87%  24.04%
+State Element Transitions         4.87%   13.03%  20.83%
+-------------------------------  ------  -------  ------
+Load Shift Transitions           42.26%   46.84%  51.59%
+Response Shift Transitions       33.27%   42.42%  47.74%
+//  command: ## Added this for bypass test case
+//  command: report_scan_volume 
+//
+//  -----------------------------------------------------          
+//  Scan volume report.                                                                            
+//  -------------------                                                                            
+//     channels     : 2                                                                            
+//     shift cycles : 39+18                                                                        
+//  -----------------------------------------------------          
+//  pattern       # test  # scan                   volume          
+//  type        patterns   loads  (cell loads or unloads)          
+//  ----------  --------  ------  -----------------------          
+//  chain_test        33      33                     3762          
+//  basic            583     583                    66462          
+//  ----------  --------  ------  -----------------------          
+//  total            616     616                    70224   (70.2K)
+//
+//  command: report_scan_chains 
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_1   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_0_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_0_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_2   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_1_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_1_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_3   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_2_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_2_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_4   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_3_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_3_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_5   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_4_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_4_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_6   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_5_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_5_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_7   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_6_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_6_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_8   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_7_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_7_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_9   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_8_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_8_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_10   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_9_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_9_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_11   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_10_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_10_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_12   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_11_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_11_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_13   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_12_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_12_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_14   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_13_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_13_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_15   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_14_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_14_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_16   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_15_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_15_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_17   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_16_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_16_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_18   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_17_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_17_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_19   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_18_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_18_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_20   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_19_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_19_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_21   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_20_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_20_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_22   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_21_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_21_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_23   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_22_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_22_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_24   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_23_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_23_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_25   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_24_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_24_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_26   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_25_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_25_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_27   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_26_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_26_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_28   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_27_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_27_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_29   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_28_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_28_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_30   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_29_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_29_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_31   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_30_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_30_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_32   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_31_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_31_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_33   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_32_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_32_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_34   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_33_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_33_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_35   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_34_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_34_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_36   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_35_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_35_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_37   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_36_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_36_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_38   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_37_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_37_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_39   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_38_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_38_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_40   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_39_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_39_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_41   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_40_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_40_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_42   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_41_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_41_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_43   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_42_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_42_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_44   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_43_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_43_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_45   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_44_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_44_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_46   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_45_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_45_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_47   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_46_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_46_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_48   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_47_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_47_buf/y'  length = 39
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_49   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_48_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_48_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_50   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_49_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_49_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_51   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_50_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_50_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_52   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_51_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_51_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_53   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_52_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_52_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_54   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_53_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_53_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_55   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_54_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_54_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_56   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_55_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_55_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_57   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_56_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_56_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_58   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_57_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_57_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_59   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_58_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_58_buf/y'  length = 38
+EDT block = 'picorv32_rtl1_tessent_edt_c1_inst__edt_block'   chain = picorv32_rtl1_tessent_edt_c1_inst__chain_60   group = grp1  input = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_in_59_buf/y'  output = '/picorv32_rtl1_tessent_edt_c1_inst/tessent_persistent_cell_edt_scan_out_59_buf/y'  length = 38
+//  command: bp
+//  Error: Command 'bp' is unknown
+// 'DOFile stuck.do' aborted at line 55
+//  command: open_visualizer 
+//  Note: Generating IJTAG Network data model for visualization purposes... failed.
+//  Note: Grouping DRC violations for visualization purposes... done.
+//  Note: Tessent Visualizer client successfully started and connected to the server.
+//  command: exit 
+//  Warning: Current test pattern set has not been saved.
+//  confirm program exit ( y , n=default ) : 

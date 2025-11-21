@@ -1,0 +1,1 @@
+dc_shell -f to_dc_synthesis.tcl |tee logfiles/run_dc_synthesis.log

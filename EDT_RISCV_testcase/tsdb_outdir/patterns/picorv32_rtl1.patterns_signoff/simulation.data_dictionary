@@ -1,0 +1,173 @@
+set simulation_dict {
+  version 2
+  top_design_logical_library "work"
+  patterns {
+    ICLNetwork {
+      testbench_module_name      TB
+      current_design_view        ijtag_graybox
+      top_design_instance_name   DUT_inst
+      top_module_name_list {}
+      extra_simulation_file_list {}
+      simulation_macro_list {
+         SIM_INSTANCE_NAME=DUT_inst
+      }
+      lower_instances {}
+      file_list {
+         "ICLNetwork.pdl"
+         "ICLNetwork.v"
+         "ICLNetwork.v.0.vec"
+         "ICLNetwork.v.cfg"
+      }
+      icl_time "Thu Nov 20 12:09:56 EST 2025"
+      sim_data_files ok
+    }
+  }
+
+  design_source_dictionary {
+    read1 {
+      format       "verilog_2001"
+      work_library "work"
+
+      files {
+        "../../dft_inserted_designs/picorv32_rtl1.dft_inserted_design/modified_rtl_files/picorv32.v"
+      }
+      libraries {
+      }
+      extensions {
+      }
+      defines {
+      }
+      incdirs {
+      }
+      options {
+      }
+      is_current_design 1
+      modules_dict {
+        picorv32 {needed_in_views {full ijtag_graybox}}
+      }
+    }
+
+    read2 {
+      format       "verilog_2001"
+      work_library "work"
+
+      files {
+        "../../instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_mux2.v"
+        "../../instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_mux2.v"
+        "../../instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_gate_and.v"
+        "../../instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_posedge_synchronizer_reset.v"
+      }
+      libraries {
+      }
+      extensions {
+      }
+      defines {
+      }
+      incdirs {
+      }
+      options {
+        "-no_overwrite"
+      }
+      modules_dict {
+        picorv32 {needed_in_views {full ijtag_graybox}}
+      }
+    }
+
+    read3 {
+      format       "verilog_2001"
+      work_library "work"
+
+      files {
+        "../../instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_buf.v"
+        "../../instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_buf.v"
+        "../../instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_inv.v"
+      }
+      libraries {
+      }
+      extensions {
+      }
+      defines {
+      }
+      incdirs {
+      }
+      options {
+        "-no_overwrite"
+      }
+      modules_dict {
+        picorv32 {needed_in_views {full ijtag_graybox}}
+      }
+    }
+
+    read4 {
+      format       "verilog_2001"
+      work_library "work"
+
+      files {
+        "../../instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.v"
+      }
+      libraries {
+      }
+      extensions {
+      }
+      defines {
+      }
+      incdirs {
+      }
+      options {
+        "-no_overwrite"
+      }
+      modules_dict {
+        picorv32 {needed_in_views {full ijtag_graybox}}
+      }
+    }
+
+    read5 {
+      format       "verilog_2001"
+      work_library "work"
+
+      files {
+        "../../instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.v"
+      }
+      libraries {
+      }
+      extensions {
+      }
+      defines {
+      }
+      incdirs {
+      }
+      options {
+        "-no_overwrite"
+      }
+      modules_dict {
+        picorv32 {needed_in_views {full ijtag_graybox}}
+      }
+    }
+
+    read6 {
+      format       "verilog_2001"
+      work_library "work"
+
+      files {
+        "../../dft_inserted_designs/picorv32_rtl1.dft_inserted_design/ijtag_graybox/picorv32.v_ijtag_graybox"
+      }
+      libraries {
+      }
+      extensions {
+      }
+      defines {
+      }
+      incdirs {
+      }
+      options {
+        "-ignore_synthesis_off_sections" "off" "-no_lib_rescan" "-pragma_list" ""
+      }
+      is_current_design 1
+      is_graybox_view 1
+      modules_dict {
+        picorv32 {needed_in_views ijtag_graybox}
+      }
+    }
+    logical_design_library_list { work }
+  }
+}

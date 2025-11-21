@@ -1,0 +1,19 @@
+#! /bin/csh -f
+
+rm -rf work
+vlib work
+
+vlog ../library/verilog/dft_sim.v
+vlog ../tsdb_outdir/dft_inserted_designs/picorv32_gate.dft_inserted_design/picorv32.vg 
+
+vlog patterns/picorv32_stuck_serial.v 
+vsim -c -voptargs="+acc" picorv32_picorv32_stuck_serial_v_ctl -l logfiles/verilog.log_stuck_serial +nospecify +nowarnTSCALE -c -wlf serial_patterns.wlf -do "if {1} {log -r /*}; run -all"
+
+# vlog patterns/picorv32_stuck_parallel.v 
+# vsim -c -voptargs="+acc" picorv32_picorv32_stuck_parallel_v_ctl -l logfiles/verilog.log_stuck_parallel +nospecify +nowarnTSCALE -c -do "if {0} {log -r /*}; run -all"
+
+# vlog patterns/picorv32_transition_serial.v 
+# vsim -c -voptargs="+acc" picorv32_picorv32_transition_serial_v_ctl -l logfiles/verilog.log_transition_serial +nospecify +nowarnTSCALE -c -do "if {0} {log -r /*}; run -all"
+
+# vlog patterns/picorv32_transition_parallel.v 
+# vsim -c -voptargs="+acc" picorv32_picorv32_transition_parallel_v_ctl -l logfiles/verilog.log_transition_parallel +nospecify +nowarnTSCALE -c -do "if {0} {log -r /*}; run -all"

@@ -1,0 +1,278 @@
+/opt/mentor/tessent-2024/tessent/bin/tessent -shell -log logfiles/./run_insert_edt_occ.log -replace -dofile ./run_insert_edt_occ
+//  Tessent Shell  2024.4    Mon Dec 02 21:53:26 GMT 2024
+//                Unpublished work. Copyright 2024 Siemens
+//
+//      This material contains trade secrets or otherwise confidential 
+//  information owned by Siemens Industry Software Inc. or its affiliates 
+//   (collectively, "SISW"), or its licensors. Access to and use of this 
+//     information is strictly limited as set forth in the Customer's 
+//                   applicable agreements with SISW. 
+//
+//  Siemens software executing under x86-64 Linux on Thu Nov 20 12:09:45 EST 2025.
+//  64 bit version
+//  Host: vlsi-cmp-00.egr.duke.edu (515084 MB RAM, 4095 MB Swap)
+//
+//  command: #! /bin/sh -f
+//  command: # exec tessent -shell -log logfiles/$0.log -replace -dofile "$0"
+//  command: ##Setting context to dft and  we are inserting DFT into rtl-level design
+//  command: set_context dft -rtl -design_id rtl1
+//  command: ##Setting where the tsdb_outdir is to be located, default is at the current working directory
+//  command: set_tsdb_output_directory ../tsdb_outdir
+//  command: ##Reading the design
+//  command: read_verilog ../rtl/picorv32.v
+//  command: set_current_design picorv32
+//  command: ##Setting the design level as physical_block
+//  command: set_design_level physical_block
+//  command: ## If source node does not exist create new ports. The ports get created only if set_design_level is not chip
+//  command: add_dft_signals scan_en edt_update test_clock -source_node { scan_en_w  edt_update test_clock_w }
+//  command: add_dft_signals shift_capture_clock edt_clock -create_from_other_signals 
+//  command: add_clocks clk -period 3ns
+//  command: ## test point stuff doesn't work currently??
+//  command: ## set_test_point_types edt_pattern_count 
+//  command: ## set_test_point_analysis_options -total_number 400
+//  command: ## set_test_point_insertion_options -control_point_enable cp_en -observe_point_enable op_en
+//  command: ## set_test_logic -set on -reset on
+//  command: check_design_rules 
+//  Flattening process completed, gates=716, PIs=102, POs=307, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  Begin circuit learning analyses.
+//  --------------------------------
+//  Learning completed, CPU time=0.00 sec.
+//  command: ## test point
+//  command: ## analyze_test_points
+//  command: ## Create the DFT Spec for adding EDT
+//  command: set spec [create_dft_specification]
+//  sub-command: create_dft_specification 
+//  
+//  Begin creation of DftSpecification(picorv32,rtl1)
+//    Creation of RtlCells wrapper
+//    Creation of IjtagNetwork wrapper
+//  
+//  Done  creation of DftSpecification(picorv32,rtl1)
+//  
+//  command: read_config_data -in $spec -from_string {
+  OCC {
+    type : standard;
+    Connections {
+      StaticExternalControls {
+         fast_capture_mode : fast_capture_mode ;
+         capture_cycle_width : capture_cycle_width_1, capture_cycle_width_0 ;
+         test_mode : test_mode ;
+      }
+    }
+  }
+}
+//  command: ##Below is a generic way to populate the OCC, use display_spec to fill in using GUI
+//  command: ##To the OCC - scan_enable and shift_capture_clock gets connected automatically
+//  command: ## Modify below to your specific design requirements
+//  command: set id_clk_list [list     clk clk  ]
+//  command: foreach {id clk} $id_clk_list {
+//             set occ [add_config_element OCC/Controller($id) -in $spec]
+//             set_config_value clock_intercept_node -in $occ $clk
+//           }
+//  sub-command: add_config_element OCC/Controller(clk) -in /DftSpecification(picorv32,rtl1) 
+//  sub-command: set_config_value clock_intercept_node -in {/DftSpecification(picorv32,rtl1)/OCC/Controller(clk)} clk 
+//  command: report_config_data $spec
+
+DftSpecification(picorv32,rtl1) {
+  OCC {
+    type : standard;
+    Connections {
+      StaticExternalControls {
+        fast_capture_mode : fast_capture_mode;
+        capture_cycle_width : capture_cycle_width_1, capture_cycle_width_0;
+        test_mode : test_mode;
+      }
+    }
+    Controller(clk) {
+      clock_intercept_nodes : clk;
+    }
+  }
+}
+//  command: ## To EDT controller, the edt_clock and edt_update get auto connected
+//  command: ## EDT includes built-in bypass
+//  command: ## Scan chains need to be stitched using LE -TE flops, if not will get K22
+//  command: ## Modify below to your specific design requirements
+//  command: read_config_data -in $spec -from_string {
+  EDT {
+    Controller (c1) {
+      longest_chain_range : 50, 65;
+      scan_chain_count : 60;
+      input_channel_count : 2;
+      output_channel_count : 2;
+      Connections {
+        StaticExternalControls {
+          edt_bypass : edt_bypass ;
+          edt_low_power_shift_enable : edt_low_power_shift_en;
+          edt_configuration : edt_configuration;
+          edt_single_bypass_chain : edt_single_bypass_chain;
+        }
+      }
+      HighCompressionConfiguration {
+        present : on;
+        input_channel_count : 1;
+        output_channel_count : 1;
+      }
+      ShiftPowerOptions {
+        present : on;
+        full_control : on;
+        min_switching_threshold_percentage : 15 ; // default = 15
+      }
+    }
+  }
+}
+//  command: report_config_data $spec
+
+DftSpecification(picorv32,rtl1) {
+  OCC {
+    type : standard;
+    Connections {
+      StaticExternalControls {
+        fast_capture_mode : fast_capture_mode;
+        capture_cycle_width : capture_cycle_width_1, capture_cycle_width_0;
+        test_mode : test_mode;
+      }
+    }
+    Controller(clk) {
+      clock_intercept_nodes : clk;
+    }
+  }
+  EDT {
+    Controller(c1) {
+      longest_chain_range : 50, 65;
+      scan_chain_count : 60;
+      input_channel_count : 2;
+      output_channel_count : 2;
+      Connections {
+        StaticExternalControls {
+          edt_bypass : edt_bypass;
+          edt_low_power_shift_enable : edt_low_power_shift_en;
+          edt_configuration : edt_configuration;
+          edt_single_bypass_chain : edt_single_bypass_chain;
+        }
+      }
+      HighCompressionConfiguration {
+        present : on;
+        input_channel_count : 1;
+        output_channel_count : 1;
+      }
+      ShiftPowerOptions {
+        present : on;
+        full_control : on;
+        min_switching_threshold_percentage : 15; // default = 15
+      }
+    }
+  }
+}
+//  command: ## The hardware gets generated here
+//  command: process_dft_specification 
+//  
+//  Begin processing of /DftSpecification(picorv32,rtl1)
+//    --- IP generation phase ---
+//    Validation of OCC
+//  Warning: /DftSpecification(picorv32,rtl1)/OCC/Controller(clk)/type
+//           This property is deprecated and will be removed in a later release.
+//           To create 'standard' OCC, set parent_mode to 'off' and not set upstream_parent_occ to 'require'.
+//    Validation of EDT
+//    Processing of RtlCells
+//      Generating Verilog RTL Cells
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_buf.v
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_buf.v
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_inv.v
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_mux2.v
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_mux2.v
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_clk_gate_and.v
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_cells.instrument/picorv32_rtl1_tessent_posedge_synchronizer_reset.v
+//
+//      Loading the generated RTL verilog files (4) to enable instantiating the contained modules
+//      into the design.
+//
+//      Loading the generated structural verilog files (3) to enable instantiating the contained modules
+//      into the design.
+//    Processing of OCC
+//      Generating design files for OCC module picorv32_rtl1_tessent_occ
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.v
+//        IJTAG ICL   : ../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.icl
+//        IJTAG PDL   : ../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.pdl
+//        TCD         : ../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.tcd
+//        TCD Scan    : ../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.tcd_scan
+//        CTL         : ../tsdb_outdir/instruments/picorv32_rtl1_occ.instrument/picorv32_rtl1_tessent_occ.ctl
+//
+//      Loading the generated RTL verilog files (1) to enable instantiating the contained modules
+//      into the design.
+//    Processing of EDT
+//      Generating design files for EDT module picorv32_rtl1_tessent_edt_c1
+//        Verilog RTL : ../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.v
+//        IJTAG ICL   : ../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.icl
+//        IJTAG PDL   : ../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.pdl
+//        TCD         : ../tsdb_outdir/instruments/picorv32_rtl1_edt.instrument/picorv32_rtl1_tessent_edt_c1.tcd
+//
+//      Loading the generated RTL verilog files (1) to enable instantiating the contained modules
+//      into the design.
+//    --- Instrument insertion phase ---
+//   Inserting instruments of type 'ijtag'
+//   Inserting instruments of type 'occ'
+//   Inserting instruments of type 'edt'
+//  
+//    Writing out modified source design in ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design
+//    Writing out specification in ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_spec
+//  
+//  Done  processing of DftSpecification(picorv32,rtl1)
+//  
+//  command: extract_icl 
+//  Note: Updating the hierarchical data model to reflect RTL design changes.
+//  Writing design source dictionary : ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.design_source_dictionary
+//  Warning: Rule FN1 violation occurs 3884 times
+//  Warning: Rule FP13 violation occurs 2 times
+//  Flattening process completed, gates=1017, PIs=114, POs=309, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  Begin circuit learning analyses.
+//  --------------------------------
+//  Learning completed, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  Begin ICL extraction.
+//  ---------------------
+//  ICL extraction completed, ICL instances=2, CPU time=0.02 sec.
+//  ---------------------------------------------------------------------------
+//  ---------------------------------------------------------------------------
+//  Begin ICL elaboration and checking.
+//  -----------------------------------
+//  ICL elaboration completed, CPU time=0.00 sec.
+//  ---------------------------------------------------------------------------
+//  Writing ICL file : ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.icl
+//  Writing consolidated PDL file: ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.pdl
+//  Extracting SDC...
+//  Writing SDC file: ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.sdc
+//  Writing DFT info dictionary: ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/picorv32.dft_info_dictionary
+//  Writing IJTAG graybox files in directory: ../tsdb_outdir/dft_inserted_designs/picorv32_rtl1.dft_inserted_design/ijtag_graybox
+//  command: ## Creates a Synthesis script of ALL the RTL(orignial and newly created) to be used in DCShell in Step 2
+//  command: write_design_import_script -use_relative_path_to . use_in_synthesis.tcl -replace
+//  Writing file 'use_in_synthesis.tcl'.
+//  command: ##Creating the testbench to be simuated
+//  command: create_patterns_specification 
+//  Creating '/PatternsSpecification(picorv32,rtl1,signoff)'
+//    Getting patterns specifications for the 'ijtag' instrument type
+//  command: process_patterns_specification 
+//  
+//  Begin processing of /PatternsSpecification(picorv32,rtl1,signoff)
+//  
+//    Processing of /PatternsSpecification(picorv32,rtl1,signoff)/Patterns(ICLNetwork)
+//  
+//      Creation of pattern 'ICLNetwork'
+//        Solving ICLNetworkVerify(picorv32)
+//  Warning: The ICL module 'picorv32' doesn't contain any scan path or all scan paths are skipped due to exclude options. No verification patterns are created.
+//  
+//      Writing pattern file '../tsdb_outdir/patterns/picorv32_rtl1.patterns_signoff/ICLNetwork.v'
+//      Writing simulation data dictionary file '../tsdb_outdir/patterns/picorv32_rtl1.patterns_signoff/simulation.data_dictionary'
+//  
+//  Done  processing of /PatternsSpecification(picorv32,rtl1,signoff)
+//  
+//  Writing configuration data file '../tsdb_outdir/patterns/picorv32_rtl1.patterns_spec_signoff'.
+//  command: ##Simulating the testbench
+//  command: run_testbench_simulations 
+Starting 1 simulation for ./simulation_outdir/picorv32_rtl1.simulation_signoff
+//  Waiting for the simulation(s) to complete
+
+unscheduled 0 queued 0 running 0 pass 1 fail 0
+//  command: ## If simulation fails use the command below to see which pattern failed
+//  command: exit 

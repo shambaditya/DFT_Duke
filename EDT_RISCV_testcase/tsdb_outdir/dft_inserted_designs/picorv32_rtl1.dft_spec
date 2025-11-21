@@ -1,0 +1,48 @@
+//-------------------------------------------------
+//  File created by: Tessent Shell
+//          Version: 2024.4
+//       Created on: Thu Nov 20 12:09:56 EST 2025
+//-------------------------------------------------
+
+
+DftSpecification(picorv32,rtl1) {
+  OCC {
+    type : standard;
+    Connections {
+      StaticExternalControls {
+        fast_capture_mode : fast_capture_mode;
+        capture_cycle_width : capture_cycle_width_1, capture_cycle_width_0;
+        test_mode : test_mode;
+      }
+    }
+    Controller(clk) {
+      clock_intercept_nodes : clk;
+    }
+  }
+  EDT {
+    Controller(c1) {
+      longest_chain_range : 50, 65;
+      scan_chain_count : 60;
+      input_channel_count : 2;
+      output_channel_count : 2;
+      Connections {
+        StaticExternalControls {
+          edt_bypass : edt_bypass;
+          edt_low_power_shift_enable : edt_low_power_shift_en;
+          edt_configuration : edt_configuration;
+          edt_single_bypass_chain : edt_single_bypass_chain;
+        }
+      }
+      HighCompressionConfiguration {
+        present : on;
+        input_channel_count : 1;
+        output_channel_count : 1;
+      }
+      ShiftPowerOptions {
+        present : on;
+        full_control : on;
+        min_switching_threshold_percentage : 15; // default = 15
+      }
+    }
+  }
+}

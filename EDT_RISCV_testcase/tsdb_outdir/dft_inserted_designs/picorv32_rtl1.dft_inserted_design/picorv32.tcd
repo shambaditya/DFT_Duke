@@ -1,0 +1,70 @@
+//-------------------------------------------------
+//  File created by: Tessent Shell
+//          Version: 2024.4
+//       Created on: Thu Nov 20 12:09:56 EST 2025
+//-------------------------------------------------
+
+
+Core(picorv32) {
+  DesignInfo {
+    design_id : rtl1;
+    design_level : physical_block;
+    ChildBlockModules {
+    }
+    RtlClockGaters {
+      RtlClockGater(picorv32_rtl1_tessent_clk_gate_and) {
+        functional_enable : fe;
+        functional_enable_polarity : 1;
+        test_enable : te;
+        test_enable_polarity : 1;
+      }
+    }
+    Clocks {
+      Clock(clk) {
+        domain_label : clk;
+        type : async_source;
+        base_period : 3.00ns;
+        period : 3.0;
+      }
+    }
+    DynamicDftSignals {
+      DynamicDftSignal(edt_clock) {
+        Instance {
+          type : pin;
+          created_from_other_signals : on;
+          add_hold_scan_cell : off;
+          node_name : tessent_persistent_cell_edt_clock/clkg;
+        }
+      }
+      DynamicDftSignal(edt_update) {
+        Instance {
+          type : port;
+          add_hold_scan_cell : off;
+          node_name : edt_update;
+        }
+      }
+      DynamicDftSignal(scan_en) {
+        Instance {
+          type : port;
+          add_hold_scan_cell : off;
+          node_name : scan_en_w;
+        }
+      }
+      DynamicDftSignal(shift_capture_clock) {
+        Instance {
+          type : pin;
+          created_from_other_signals : on;
+          add_hold_scan_cell : off;
+          node_name : tessent_persistent_cell_shift_capture_clock/clkg;
+        }
+      }
+      DynamicDftSignal(test_clock) {
+        Instance {
+          type : port;
+          add_hold_scan_cell : off;
+          node_name : test_clock_w;
+        }
+      }
+    }
+  }
+}
