@@ -1,3 +1,10 @@
+picorv32:
+For a new run with picorv32.v and run_insert_edt_occ (not in your main files, but outside, just in case you want to take a look) : 
+
+Go to tsdb_outdir > dft_inserted_designs then delete anything with picorv32 folder and the dft_spec file [Have to do this once before you run with the new uploaded file]
+
+
+
 gps_baseband : Logic only unwrapped core.
 ---------------------------------------
 
