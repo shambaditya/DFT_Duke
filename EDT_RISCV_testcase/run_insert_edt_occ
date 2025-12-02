@@ -91,7 +91,6 @@ report_config_data $spec
 process_dft_specification
 
 extract_icl
-break
 ## Creates a Synthesis script of ALL the RTL(orignial and newly created) to be used in DCShell in Step 2
 write_design_import_script -use_relative_path_to . use_in_synthesis.tcl -replace
 
