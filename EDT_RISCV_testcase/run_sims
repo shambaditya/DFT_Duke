@@ -1,0 +1,19 @@
+#! /bin/csh -f
+
+rm -rf work
+vlib work
+
+vlog ../library/verilog/dft_sim.v
+vlog ../tsdb_outdir/dft_inserted_designs/picorv32_axi_gate.dft_inserted_design/picorv32_axi.vg 
+
+vlog patterns/picorv32_axi_stuck_serial.v 
+vsim -c -voptargs="+acc" picorv32_axi_picorv32_axi_stuck_serial_v_ctl -l logfiles/verilog.log_stuck_serial +nospecify +nowarnTSCALE -c -wlf serial_stuck_axi.wlf -do "if {1} {log -r /*}; run -all"
+
+vlog patterns/picorv32_axi_stuck_parallel.v 
+vsim -c -voptargs="+acc" picorv32_axi_picorv32_axi_stuck_parallel_v_ctl -l logfiles/verilog.log_stuck_parallel +nospecify +nowarnTSCALE -c -wlf parallel_stuck_axi.wlf -do "if {1} {log -r /*}; run -all"
+
+vlog patterns/picorv32_axi_transition_serial.v 
+vsim -c -voptargs="+acc" picorv32_axi_picorv32_axi_transition_serial_v_ctl -l logfiles/verilog.log_transition_serial +nospecify +nowarnTSCALE -c -wlf serial_transition_axi.wlf -do "if {1} {log -r /*}; run -all"
+
+vlog patterns/picorv32_axi_transition_parallel.v 
+vsim -c -voptargs="+acc" picorv32_axi_picorv32_axi_transition_parallel_v_ctl -l logfiles/verilog.log_transition_parallel +nospecify +nowarnTSCALE -c -wlf parallel_transition_axi.wlf -do "if {1} {log -r /*}; run -all"
